@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonogameLibrary;
+using MonogameLibrary.Graphics;
 using MonogameLibrary.Tilemaps;
 using MonogameLibrary.Utilities;
 using System;
@@ -38,8 +40,6 @@ namespace Bigmode_Game_Jam_2026
 
         protected override void LoadContent()
         {
-
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)

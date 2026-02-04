@@ -10,7 +10,8 @@ namespace Bigmode_Game_Jam_2026
     {
         #region rConstants
 
-
+        private const int SCREEN_WIDTH = 1280;
+        private const int SCREEN_HEIGHT = 720;
 
         #endregion rConstants
 
@@ -42,8 +43,8 @@ namespace Bigmode_Game_Jam_2026
         public Screen(GraphicsDeviceManager graphics)
         {
             mGraphics = graphics;
-            mScreenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            mScreenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            mScreenWidth = SCREEN_WIDTH;
+            mScreenHeight = SCREEN_HEIGHT;
             mScreenTarget = new RenderTarget2D(graphics.GraphicsDevice, mScreenWidth, mScreenHeight);
         }
 

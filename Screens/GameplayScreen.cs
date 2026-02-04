@@ -1,7 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Bigmode_Game_Jam_2026.Tiles;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonogameLibrary.Graphics;
 using MonogameLibrary.Tilemaps;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 
 namespace Bigmode_Game_Jam_2026
 {
@@ -12,8 +15,10 @@ namespace Bigmode_Game_Jam_2026
     {
         #region rMembers
 
-        Tilemap map;
+        const int TILE_SIZE = 64;
 
+        Tileset _tileset;
+        Tilemap _tilemap;
 
         #endregion rMembers
 
@@ -37,7 +42,18 @@ namespace Bigmode_Game_Jam_2026
         /// </summary>
         public override void LoadContent()
         {
-           
+            // Load tileset
+            Texture2D texture = Main.Content.Load<Texture2D>("tileset");
+            TextureRegion region = new TextureRegion(texture, 0, 0, texture.Width, texture.Height);
+            _tileset = new Tileset(region, TILE_SIZE, TILE_SIZE);
+
+            int mapSize = 10;
+
+            // Load map
+            Vector2 mapPos = new Vector2(GetScreenSize().Center.X - (TILE_SIZE * mapSize / 2), GetScreenSize().Center.Y - (TILE_SIZE * mapSize/ 2));
+
+            TilemapLoader _mapLoader = new TilemapLoader();
+            _tilemap = _mapLoader.Load(_tileset, mapPos, TILE_SIZE, TILE_SIZE, 10, 10, "Level1");
         }
 
         #endregion rInitialisation
@@ -55,7 +71,7 @@ namespace Bigmode_Game_Jam_2026
         /// <param name="gameTime">Frame time</param>
         public override void Update(GameTime gameTime)
         {
-           
+
         }
 
         #endregion rUpdate
@@ -79,6 +95,7 @@ namespace Bigmode_Game_Jam_2026
 
             spriteBatch.Begin();
 
+            _tilemap.Draw(spriteBatch);
 
             spriteBatch.End();
 
