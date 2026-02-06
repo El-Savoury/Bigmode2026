@@ -1,9 +1,11 @@
-﻿using Bigmode_Game_Jam_2026.Tiles;
+﻿using Bigmode_Game_Jam_2026.GameObjects;
+using Bigmode_Game_Jam_2026.Tiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonogameLibrary.Graphics;
 using MonogameLibrary.Tilemaps;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Net.NetworkInformation;
 
 namespace Bigmode_Game_Jam_2026
@@ -21,6 +23,7 @@ namespace Bigmode_Game_Jam_2026
         Tilemap _tilemap;
 
         TileObject _object;
+        TileObject _rock;
 
         #endregion rMembers
 
@@ -53,7 +56,9 @@ namespace Bigmode_Game_Jam_2026
             _tilemap = _mapLoader.Load(mapPos, TILE_SIZE, TILE_SIZE, 10, 10, "Level1");
 
 
-            _object = new TileObject(_tilemap, 0, 0);
+            _object = new TileObject(_tilemap, 1, 1);
+            _rock = new TileObject(_tilemap, 4, 1);
+            _rock.Direction = Point.Zero;
         }
 
         #endregion rInitialisation
@@ -71,7 +76,12 @@ namespace Bigmode_Game_Jam_2026
         /// <param name="gameTime">Frame time</param>
         public override void Update(GameTime gameTime)
         {
-            _object.MoveToNextIndex(gameTime, new Point(1, 0));
+          
+            _object.Update(gameTime);
+
+            _object.Collide(_rock);
+
+            _rock.Update(gameTime);
         }
 
         #endregion rUpdate
@@ -97,6 +107,7 @@ namespace Bigmode_Game_Jam_2026
 
             _tilemap.Draw(spriteBatch);
             _object.Draw(spriteBatch);
+            _rock.Draw(spriteBatch);
 
             spriteBatch.End();
 
