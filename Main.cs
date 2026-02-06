@@ -47,6 +47,8 @@ namespace Bigmode_Game_Jam_2026
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            ScreenManager.GetActiveScreen().Update(gameTime);
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);

@@ -20,6 +20,8 @@ namespace Bigmode_Game_Jam_2026
         Tileset _tileset;
         Tilemap _tilemap;
 
+        TileObject _object;
+
         #endregion rMembers
 
 
@@ -42,18 +44,16 @@ namespace Bigmode_Game_Jam_2026
         /// </summary>
         public override void LoadContent()
         {
-            // Load tileset
-            Texture2D texture = Main.Content.Load<Texture2D>("tileset");
-            TextureRegion region = new TextureRegion(texture, 0, 0, texture.Width, texture.Height);
-            _tileset = new Tileset(region, TILE_SIZE, TILE_SIZE);
-
             int mapSize = 10;
 
             // Load map
-            Vector2 mapPos = new Vector2(GetScreenSize().Center.X - (TILE_SIZE * mapSize / 2), GetScreenSize().Center.Y - (TILE_SIZE * mapSize/ 2));
+            Vector2 mapPos = new Vector2(GetScreenSize().Center.X - (TILE_SIZE * mapSize / 2), GetScreenSize().Center.Y - (TILE_SIZE * mapSize / 2));
 
             TilemapLoader _mapLoader = new TilemapLoader();
-            _tilemap = _mapLoader.Load(_tileset, mapPos, TILE_SIZE, TILE_SIZE, 10, 10, "Level1");
+            _tilemap = _mapLoader.Load(mapPos, TILE_SIZE, TILE_SIZE, 10, 10, "Level1");
+
+
+            _object = new TileObject(_tilemap, 0, 0);
         }
 
         #endregion rInitialisation
@@ -71,7 +71,7 @@ namespace Bigmode_Game_Jam_2026
         /// <param name="gameTime">Frame time</param>
         public override void Update(GameTime gameTime)
         {
-
+            _object.MoveToNextIndex(gameTime, new Point(1, 0));
         }
 
         #endregion rUpdate
@@ -96,6 +96,7 @@ namespace Bigmode_Game_Jam_2026
             spriteBatch.Begin();
 
             _tilemap.Draw(spriteBatch);
+            _object.Draw(spriteBatch);
 
             spriteBatch.End();
 
