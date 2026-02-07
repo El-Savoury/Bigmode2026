@@ -32,7 +32,7 @@ namespace Bigmode_Game_Jam_2026
 
         protected override void Initialize()
         {
-            ScreenManager.LoadAllScreens(Graphics);
+            ScreenManager.LoadAllScreens(Graphics, Content);
             ScreenManager.ActivateScreen(ScreenType.Gameplay);
 
             base.Initialize();

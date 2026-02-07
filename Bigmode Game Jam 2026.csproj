@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Content\Level1.txt" />
+    <None Remove="Content\player.png" />
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
   </ItemGroup>

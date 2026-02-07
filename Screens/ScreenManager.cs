@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 
 namespace Bigmode_Game_Jam_2026
@@ -36,11 +37,11 @@ namespace Bigmode_Game_Jam_2026
         /// Load all screens but don't activate them.
         /// </summary>
         /// <param name="deviceManager">Graphics device</param>
-        public static void LoadAllScreens(GraphicsDeviceManager deviceManager)
+        public static void LoadAllScreens(GraphicsDeviceManager deviceManager, ContentManager content)
         {
             mScreens.Clear();
 
-            LoadScreen(ScreenType.Gameplay, new GameplayScreen(deviceManager));
+            LoadScreen(ScreenType.Gameplay, new GameplayScreen(deviceManager), content);
         }
 
 
@@ -49,10 +50,10 @@ namespace Bigmode_Game_Jam_2026
         /// </summary>
         /// <param name="type"></param>
         /// <param name="screen"></param>
-        private static void LoadScreen(ScreenType type, Screen screen)
+        private static void LoadScreen(ScreenType type, Screen screen, ContentManager content)
         {
             mScreens.Add(type, screen);
-            screen.LoadContent();
+            screen.LoadContent(content);
         }
 
         #endregion rInitialise 

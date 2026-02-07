@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Bigmode_Game_Jam_2026
@@ -52,7 +53,7 @@ namespace Bigmode_Game_Jam_2026
         /// <summary>
         /// Load content for this screen.
         /// </summary>
-        public virtual void LoadContent() { }
+        public virtual void LoadContent(ContentManager content) { }
 
 
         /// <summary>
