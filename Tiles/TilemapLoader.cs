@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Bigmode_Game_Jam_2026.GameObjects;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonogameLibrary.Graphics;
@@ -22,6 +23,9 @@ namespace Bigmode_Game_Jam_2026.Tiles
         const string DOWN = "2";
         const string LEFT = "4";
         const string RIGHT = "6";
+        const string PLAYER = "P";
+        const string COLUMN = "C";
+        const string ROCK = "R";
 
         const int TILE_TEXTURE_WIDTH = 64;
         const int TILE_TEXTURE_HEIGHT = 72;
@@ -58,7 +62,7 @@ namespace Bigmode_Game_Jam_2026.Tiles
             map.AddTileType(TileType.Down, 4);
             map.AddTileType(TileType.Left, 6);
             map.AddTileType(TileType.Right, 7);
-
+       
             string[,] tileData = GetTileData(filePath);
 
             for (int y = 0; y < rows; y++)
@@ -95,6 +99,21 @@ namespace Bigmode_Game_Jam_2026.Tiles
 
                         case RIGHT:
                             map.SetTile("defaultLayer", new Tile(TileType.Right), x, y);
+                            break;
+
+                        case PLAYER:
+                            TileObjectManager.I.RegisterObject(new Player(map, x, y));
+                            map.SetTile("defaultLayer", new Tile(TileType.Ice), x, y);
+                            break;
+
+                        case ROCK:
+                            TileObjectManager.I.RegisterObject(new Rock(map, x, y));
+                            map.SetTile("defaultLayer", new Tile(TileType.Ice), x, y);
+                            break;
+
+                        case COLUMN:
+                            TileObjectManager.I.RegisterObject(new Column(map, x, y));
+                            map.SetTile("defaultLayer", new Tile(TileType.Ice), x, y);
                             break;
 
                         default:

@@ -5,10 +5,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonogameLibrary.Graphics;
 using MonogameLibrary.Tilemaps;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.Common;
-using System.Net.NetworkInformation;
 
 namespace Bigmode_Game_Jam_2026
 {
@@ -23,10 +19,6 @@ namespace Bigmode_Game_Jam_2026
 
         Tileset _tileset;
         Tilemap _tilemap;
-
-        Player _player;
-        Rock _rock;
-        Rock _rock2;
 
         #endregion rMembers
 
@@ -61,20 +53,7 @@ namespace Bigmode_Game_Jam_2026
 
             TilemapLoader _mapLoader = new TilemapLoader();
             _tilemap = _mapLoader.Load(mapPos, TILE_SIZE, TILE_SIZE, 10, 10, "Level1");
-
-            _player = new Player(_tilemap, 1, 1);
-            _rock = new Rock(_tilemap, 4, 1);
-            _rock2 = new Rock(_tilemap,7, 2);
-            _rock.Direction = Point.Zero;
-            _rock2.Direction = Point.Zero;
-
-            _rock.LoadContent(_tileset.GetTileTexture(3));
-            _rock2.LoadContent(_tileset.GetTileTexture(3));
-            _player.LoadContent(content);
-
         }
-
-
 
         #endregion rInitialisation
 
@@ -91,16 +70,7 @@ namespace Bigmode_Game_Jam_2026
         /// <param name="gameTime">Frame time</param>
         public override void Update(GameTime gameTime)
         {
-            _player.Update(gameTime);
-            _rock.Update(gameTime);
-            _rock2.Update(gameTime);
-
-            _player.ResolveCollison(_rock);
-            _rock.ResolveCollison(_player);
-
-            _rock.ResolveCollison(_rock2);
-
-
+            TileObjectManager.I.Update(gameTime);
         }
 
         #endregion rUpdate
@@ -125,9 +95,7 @@ namespace Bigmode_Game_Jam_2026
             spriteBatch.Begin();
 
             _tilemap.Draw(spriteBatch);
-            _player.Draw(spriteBatch);
-            _rock.Draw(spriteBatch);
-            _rock2.Draw(spriteBatch);
+            TileObjectManager.I.Draw(spriteBatch);
 
             spriteBatch.End();
 

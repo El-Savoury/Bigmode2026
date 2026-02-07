@@ -1,10 +1,12 @@
 ﻿using Bigmode_Game_Jam_2026.Tiles;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonogameLibrary.Graphics;
 using MonogameLibrary.Maths;
 using MonogameLibrary.Tilemaps;
 using MonogameLibrary.Utilities;
+using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -29,7 +31,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         public Vector2 Position;
         public Point Direction { get; set; }
         public Point Index { get; set; }
-        public RectF Bounds => new RectF(Position.X, Position.Y, SIZE + 1, SIZE + 1);
+        public RectF Bounds => new RectF(Position.X, Position.Y, SIZE, SIZE);
 
 
         public TileObject(Tilemap tilemap, int xIndex, int yIndex)
@@ -39,6 +41,8 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             Position = _tilemap.GetTileWorldPos(Index.X, Index.Y);
             Direction = new Point(1, 0);
         }
+
+        public abstract void LoadContent();
 
 
         public Point GetNextIndex(Point direction)
@@ -50,8 +54,18 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         public void MoveToNextIndex(GameTime gameTime)
         {
             Point nextIndex = GetNextIndex(Direction);
-            Vector2 targetPos = _tilemap.GetTileWorldPos(nextIndex.X, nextIndex.Y);
 
+            // Check for collisions
+            TileObject collisionObj = TileObjectManager.I.GetObject(nextIndex);
+
+            if (collisionObj != null)
+            {
+                collisionObj.ResolveCollison(this);
+                ResolveCollison(collisionObj);
+                nextIndex = GetNextIndex(Direction);
+            }
+
+            Vector2 targetPos = _tilemap.GetTileWorldPos(nextIndex.X, nextIndex.Y);
             Position.X += Direction.X * SPEED * Utility.I.DeltaTime(gameTime);
             Position.Y += Direction.Y * SPEED * Utility.I.DeltaTime(gameTime);
 
@@ -62,9 +76,8 @@ namespace Bigmode_Game_Jam_2026.GameObjects
                 Direction.Y == -1 && Position.Y < targetPos.Y)
             {
                 Position = targetPos;
-                
-                Index = _tilemap.GetIndexfromWorldPos(Position);
 
+                Index = _tilemap.GetIndexfromWorldPos(Position);
                 GetDirection(Index);
             }
         }
@@ -81,56 +94,93 @@ namespace Bigmode_Game_Jam_2026.GameObjects
                     break;
                 case (ushort)TileType.Down:
                     Direction = new Point(0, 1);
-
                     break;
                 case (ushort)TileType.Up:
                     Direction = new Point(0, -1);
-
                     break;
                 case (ushort)TileType.Left:
                     Direction = new Point(-1, 0);
-
                     break;
                 case (ushort)TileType.Right:
                     Direction = new Point(1, 0);
-
                     break;
                 case (ushort)TileType.Win:
                     Direction = Point.Zero;
                     break;
+
             }
         }
 
 
+
         public bool Collide(TileObject obj)
         {
-            return (Collision.I.RectVsRect(Bounds, obj.Bounds));
+            if (_currentState == State.Fall) { return false; }
+            return Collision.I.RectVsRect(Bounds, obj.Bounds);
         }
+
 
         public abstract void ResolveCollison(TileObject obj);
 
 
+        public void PushOutOfCollision(TileObject obj)
+        {
+            RectF rect = obj.Bounds;
+
+            float overlapX = Math.Min(Bounds.Right - rect.Left, rect.Right - Bounds.Left);
+            float overlapY = Math.Min(Bounds.Bottom - rect.Top, rect.Bottom - Bounds.Top);
+
+            if (overlapX < overlapY)
+            {
+                Position.X += Bounds.Centre.X > rect.Centre.X ? overlapX : -overlapX;
+
+            }
+            else
+            {
+                Position.Y += Bounds.Centre.Y > rect.Centre.Y ? overlapY : -overlapY;
+
+            }
+
+            obj.Position = _tilemap.GetTileWorldPos(obj.Index.X, obj.Index.Y);
+        }
+
+
+
         public virtual void Update(GameTime gameTime)
         {
+            MoveToNextIndex(gameTime);
+
             Tile currentTile = _tilemap.GetTile("defaultLayer", Index.X, Index.Y);
             ushort currentTileType = currentTile.Type;
-
-            MoveToNextIndex(gameTime);
 
             switch (currentTileType)
             {
                 case (ushort)TileType.Ice:
 
                     break;
-                case (ushort)TileType.Empty:
 
+                case (ushort)TileType.Empty:
+                    _currentState = State.Fall;
+                    Destroy();
                     break;
+
                 case (ushort)TileType.Win:
                     Direction = Point.Zero;
                     break;
             }
         }
 
+
+        public void ReverseDirection()
+        {
+            Direction = new Point(-Direction.X, -Direction.Y);
+        }
+
+
+        public void Destroy()
+        {
+            TileObjectManager.I.DestroyObject(this);
+        }
 
         public abstract void Draw(SpriteBatch spriteBatch);
 

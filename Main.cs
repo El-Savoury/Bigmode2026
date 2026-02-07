@@ -79,5 +79,12 @@ namespace Bigmode_Game_Jam_2026
 
             base.Draw(gameTime);
         }
+
+
+        public static ContentManager GetContentManager()
+        {
+            return Content;
+        }
+
     }
 }

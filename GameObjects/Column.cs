@@ -14,18 +14,18 @@ using System.Threading.Tasks;
 
 namespace Bigmode_Game_Jam_2026.GameObjects
 {
-    public class Rock : TileObject
+    public class Column : TileObject
     {
         private Sprite _sprite;
 
-        public Rock(Tilemap map, int xIndex, int yIndex) : base(map, xIndex, yIndex)
+        public Column(Tilemap map, int xIndex, int yIndex) : base(map, xIndex, yIndex)
         {
             Direction = Point.Zero;
         }
 
         public override void LoadContent()
         {
-            _sprite = new Sprite(_tilemap.Tileset.GetTileTexture(2));
+            _sprite = new Sprite(_tilemap.Tileset.GetTileTexture(3));
         }
 
         public override void Update(GameTime gameTime)
@@ -36,35 +36,18 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public override void ResolveCollison(TileObject obj)
         {
-            // Check if next tile is blocked
-            Point nextIndex = new Point(Index.X + obj.Direction.X, Index.Y + obj.Direction.Y);
-            TileObject nextObj = TileObjectManager.I.GetObject(nextIndex);
-
-            if (nextObj is Column && Direction == Point.Zero) { return; }
-
-            if (Direction == Point.Zero)
-            {
-                Direction = obj.Direction;
-            }
-            else
-            {
-                ReverseDirection();
-            }
+            //if (Collide(obj))
+            //{
+            //    obj.ReverseDirection();
+            //    obj.Position = _tilemap.GetTileWorldPos(obj.Index.X, obj.Index.Y);
+            //}
         }
+
 
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             _sprite.Draw(spriteBatch, Position);
         }
-
     }
 }
-
-
-
-
-
-
-
-

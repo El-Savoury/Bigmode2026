@@ -19,9 +19,9 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         {
         }
 
-        public void LoadContent(ContentManager content)
+        public override void LoadContent()
         {
-            Texture2D texture = content.Load<Texture2D>("Sprites/player");
+            Texture2D texture = Main.GetContentManager().Load<Texture2D>("Sprites/player");
             TimeSpan delay = TimeSpan.FromMilliseconds(200);
 
             List<AnimationFrame> frames = new List<AnimationFrame>()
@@ -55,30 +55,10 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public override void ResolveCollison(TileObject obj)
         {
-            if (Collide(obj))
-            {
-                obj.Direction = Direction;
-                Direction = new Point(-Direction.X, -Direction.Y);
-
-                RectF rect = obj.Bounds;
-
-                float overlapX = Math.Min(Bounds.Right - rect.Left, rect.Right - Bounds.Left);
-                float overlapY = Math.Min(Bounds.Bottom - rect.Top, rect.Bottom - Bounds.Top);
-
-                if (overlapX < overlapY)
-                {
-                    Position.X += Bounds.Centre.X > rect.Centre.X ? overlapX : -overlapX;
-
-                }
-                else
-                {
-                    Position.Y += Bounds.Centre.Y > rect.Centre.Y ? overlapY : -overlapY;
-
-                }
-
-                obj.Position = _tilemap.GetTileWorldPos(obj.Index.X, obj.Index.Y);
-            }           
+            ReverseDirection();
+            PushOutOfCollision(obj);
         }
+
 
 
         public override void Draw(SpriteBatch spriteBatch)
