@@ -27,32 +27,32 @@ namespace Bigmode_Game_Jam_2026.Tiles
         const string COLUMN = "C";
         const string ROCK = "R";
 
-        const int TILE_TEXTURE_WIDTH = 64;
-        const int TILE_TEXTURE_HEIGHT = 72;
+        //const int TILE_TEXTURE_WIDTH = 64;
+        //const int TILE_TEXTURE_HEIGHT = 72;
 
         #endregion rConstants
 
 
         #region rMembers
 
-        private Tileset _tileset;
+        //private Tileset _tileset;
 
         #endregion rMembers
 
 
         public TilemapLoader()
         {
-            // Load tileset
-            Texture2D texture = Main.Content.Load<Texture2D>("tileset");
-            TextureRegion region = new TextureRegion(texture, 0, 0, texture.Width, texture.Height);
-            _tileset = new Tileset(region, TILE_TEXTURE_WIDTH, TILE_TEXTURE_HEIGHT);
+            //// Load tileset
+            //Texture2D texture = Main.Content.Load<Texture2D>("tileset");
+            //TextureRegion region = new TextureRegion(texture, 0, 0, texture.Width, texture.Height);
+            //_tileset = new Tileset(region, TILE_TEXTURE_WIDTH, TILE_TEXTURE_HEIGHT);
         }
 
 
-        public Tilemap Load(Vector2 pos, int tileWidth, int tileHeight, int rows, int cols, string filePath)
+        public Tilemap Load(Vector2 pos, Tileset tileset, int tileWidth, int tileHeight, int rows, int cols, string filePath)
         {
 
-            Tilemap map = new Tilemap(_tileset, pos, tileWidth, tileHeight, rows, cols);
+            Tilemap map = new Tilemap(tileset, pos, tileWidth, tileHeight, rows, cols);
 
             map.AddLayer("defaultLayer");
             map.AddTileType(TileType.Empty, 0);

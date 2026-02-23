@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonogameLibrary.Assets;
 using MonogameLibrary.Graphics;
-using MonogameLibrary.Maths;
 using MonogameLibrary.Tilemaps;
-using MonogameLibrary.Utilities;
 using System;
 using System.Collections.Generic;
 
@@ -14,6 +12,8 @@ namespace Bigmode_Game_Jam_2026.GameObjects
     public class Player : TileObject
     {
         AnimatedSprite _sprite;
+        Spritesheet _spritesheet;
+
 
         public Player(Tilemap map, int xIndex, int yIndex) : base(map, xIndex, yIndex)
         {
@@ -21,20 +21,14 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public override void LoadContent()
         {
-            Texture2D texture = Main.GetContentManager().Load<Texture2D>("Sprites/player");
-            TimeSpan delay = TimeSpan.FromMilliseconds(200);
+            _spritesheet = new Spritesheet(AssetManager.I.GetTextureAtlas("player"));
 
-            List<AnimationFrame> frames = new List<AnimationFrame>()
-            {
-                new AnimationFrame(new TextureRegion(texture, 0,0, 64,64),delay),
-                new AnimationFrame(new TextureRegion(texture, 64,0, 64,64),delay),
-                new AnimationFrame(new TextureRegion(texture, 126,0, 64,64),delay),
-                new AnimationFrame(new TextureRegion(texture, 190,0, 64,64),delay),
-            };
+            // create spritesheet animation
+            _spritesheet.AddAnimation("playerAnim", TimeSpan.FromMilliseconds(200), 0, 1, 2, 3);
 
-            Animation anim = new Animation(frames, false, false, true);
-            _sprite = new AnimatedSprite(anim);
+            _sprite = new AnimatedSprite(_spritesheet, "playerAnim");
         }
+
 
         public override void Update(GameTime gameTime)
         {
@@ -58,8 +52,6 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             ReverseDirection();
             PushOutOfCollision(obj);
         }
-
-
 
         public override void Draw(SpriteBatch spriteBatch)
         {

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonogameLibrary.Collisions;
 using MonogameLibrary.Graphics;
 using MonogameLibrary.Maths;
 using MonogameLibrary.Tilemaps;

@@ -3,6 +3,7 @@ using Bigmode_Game_Jam_2026.Tiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonogameLibrary.Assets;
 using MonogameLibrary.Graphics;
 using MonogameLibrary.Tilemaps;
 
@@ -15,10 +16,11 @@ namespace Bigmode_Game_Jam_2026
     {
         #region rMembers
 
-        const int TILE_SIZE = 64;
+        const int MAP_SIZE = 10;
+        const int TILE_WIDTH = 64;
+        const int TILE_HEIGHT = 72;
 
-        Tileset _tileset;
-        Tilemap _tilemap;
+        private Tilemap _tilemap;
 
         #endregion rMembers
 
@@ -37,22 +39,20 @@ namespace Bigmode_Game_Jam_2026
         {
         }
 
+
         /// <summary>
         /// Load content required for gameplay
         /// </summary>
         public override void LoadContent(ContentManager content)
         {
-            int mapSize = 10;
-            Texture2D texture = content.Load<Texture2D>("tileset");
-            TextureAtlas atlas = new TextureAtlas(texture);
-            atlas.AddRegion("tileset", 0, 0, texture.Width, texture.Height);
-            _tileset = new Tileset(atlas.GetRegion("tileset"), TILE_SIZE, TILE_SIZE);
+            TextureRegion tileTextures = AssetManager.I.GetTextureAtlas("atlas").GetRegion("tileset");
+            Tileset tileset = new Tileset("tileset", tileTextures, TILE_WIDTH, TILE_HEIGHT);
 
             // Load map
-            Vector2 mapPos = new Vector2(GetScreenSize().Center.X - (TILE_SIZE * mapSize / 2), GetScreenSize().Center.Y - (TILE_SIZE * mapSize / 2));
+            Vector2 mapPos = new Vector2(GetScreenSize().Center.X - (TILE_WIDTH * MAP_SIZE / 2), GetScreenSize().Center.Y - (TILE_HEIGHT * MAP_SIZE / 2));
 
             TilemapLoader _mapLoader = new TilemapLoader();
-            _tilemap = _mapLoader.Load(mapPos, TILE_SIZE, TILE_SIZE, 10, 10, "Level1");
+            _tilemap = _mapLoader.Load(mapPos, tileset, TILE_WIDTH, TILE_HEIGHT, 10, 10, "Level1");
         }
 
         #endregion rInitialisation

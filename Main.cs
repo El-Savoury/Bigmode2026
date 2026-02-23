@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonogameLibrary;
+using MonogameLibrary.Assets;
 using MonogameLibrary.Graphics;
-using MonogameLibrary.Tilemaps;
 using MonogameLibrary.Utilities;
 using System;
 
@@ -32,15 +31,27 @@ namespace Bigmode_Game_Jam_2026
 
         protected override void Initialize()
         {
-            ScreenManager.LoadAllScreens(Graphics, Content);
-            ScreenManager.ActivateScreen(ScreenType.Gameplay);
-
             base.Initialize();
         }
 
+
         protected override void LoadContent()
         {
+            // Tileset texture atlas
+            Texture2D tilesetTexture = Content.Load<Texture2D>("tileset");
+            TextureAtlas atlas = TextureAtlas.FromGrid("atlas", tilesetTexture, 64, 72);
+            atlas.AddRegion("tileset", 0, 0, tilesetTexture.Width, tilesetTexture.Height);
+            AssetManager.I.AddTextureAtlas("atlas", atlas);
+
+            // Player texture atlas
+            Texture2D playerTexture = Content.Load<Texture2D>("Sprites/player");
+            TextureAtlas playerAtlas = TextureAtlas.FromGrid("player", playerTexture, 64, 64);
+            AssetManager.I.AddTextureAtlas("player", playerAtlas);
+
+            ScreenManager.LoadAllScreens(Graphics, Content);
+            ScreenManager.ActivateScreen(ScreenType.Gameplay);
         }
+
 
         protected override void Update(GameTime gameTime)
         {
@@ -49,10 +60,9 @@ namespace Bigmode_Game_Jam_2026
 
             ScreenManager.GetActiveScreen().Update(gameTime);
 
-            // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
+
 
         protected override void Draw(GameTime gameTime)
         {
@@ -79,12 +89,5 @@ namespace Bigmode_Game_Jam_2026
 
             base.Draw(gameTime);
         }
-
-
-        public static ContentManager GetContentManager()
-        {
-            return Content;
-        }
-
     }
 }
