@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Bigmode_Game_Jam_2026.GameObjects
 {
-    public class Player : TileObject
+    public class Player : MovingTileObject
     {
         AnimatedSprite _sprite;
         Spritesheet _spritesheet;
@@ -49,9 +49,10 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public override void ResolveCollison(TileObject obj)
         {
-            ReverseDirection();
             PushOutOfCollision(obj);
+            ReverseDirection();
         }
+
 
         public override void Draw(SpriteBatch spriteBatch)
         {

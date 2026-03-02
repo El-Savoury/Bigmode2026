@@ -1,14 +1,8 @@
 ﻿using Bigmode_Game_Jam_2026.GameObjects;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using MonogameLibrary.Graphics;
 using MonogameLibrary.Tilemaps;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
-using System.Text.RegularExpressions;
-using System.Xml;
-using System.Xml.Linq;
+
 
 namespace Bigmode_Game_Jam_2026.Tiles
 {
@@ -27,25 +21,11 @@ namespace Bigmode_Game_Jam_2026.Tiles
         const string COLUMN = "C";
         const string ROCK = "R";
 
-        //const int TILE_TEXTURE_WIDTH = 64;
-        //const int TILE_TEXTURE_HEIGHT = 72;
-
         #endregion rConstants
-
-
-        #region rMembers
-
-        //private Tileset _tileset;
-
-        #endregion rMembers
 
 
         public TilemapLoader()
         {
-            //// Load tileset
-            //Texture2D texture = Main.Content.Load<Texture2D>("tileset");
-            //TextureRegion region = new TextureRegion(texture, 0, 0, texture.Width, texture.Height);
-            //_tileset = new Tileset(region, TILE_TEXTURE_WIDTH, TILE_TEXTURE_HEIGHT);
         }
 
 
@@ -62,7 +42,7 @@ namespace Bigmode_Game_Jam_2026.Tiles
             map.AddTileType(TileType.Down, 4);
             map.AddTileType(TileType.Left, 6);
             map.AddTileType(TileType.Right, 7);
-       
+
             string[,] tileData = GetTileData(filePath);
 
             for (int y = 0; y < rows; y++)

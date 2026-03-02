@@ -52,7 +52,7 @@ namespace Bigmode_Game_Jam_2026
             Vector2 mapPos = new Vector2(GetScreenSize().Center.X - (TILE_WIDTH * MAP_SIZE / 2), GetScreenSize().Center.Y - (TILE_HEIGHT * MAP_SIZE / 2));
 
             TilemapLoader _mapLoader = new TilemapLoader();
-            _tilemap = _mapLoader.Load(mapPos, tileset, TILE_WIDTH, TILE_HEIGHT, 10, 10, "Level1");
+            _tilemap = _mapLoader.Load(mapPos, tileset, TILE_WIDTH, TILE_WIDTH, 10, 10, "Level1");
         }
 
         #endregion rInitialisation

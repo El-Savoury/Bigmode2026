@@ -20,7 +20,6 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public Column(Tilemap map, int xIndex, int yIndex) : base(map, xIndex, yIndex)
         {
-            Direction = Point.Zero;
         }
 
         public override void LoadContent()
@@ -30,17 +29,10 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
         }
-
 
         public override void ResolveCollison(TileObject obj)
         {
-            //if (Collide(obj))
-            //{
-            //    obj.ReverseDirection();
-            //    obj.Position = _tilemap.GetTileWorldPos(obj.Index.X, obj.Index.Y);
-            //}
         }
 
 

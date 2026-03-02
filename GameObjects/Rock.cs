@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonogameLibrary.Graphics;
+using MonogameLibrary.Input;
 using MonogameLibrary.Maths;
 using MonogameLibrary.Tilemaps;
 using MonogameLibrary.Utilities;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Bigmode_Game_Jam_2026.GameObjects
 {
-    public class Rock : TileObject
+    public class Rock : MovingTileObject
     {
         private Sprite _sprite;
 
@@ -36,15 +37,11 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public override void ResolveCollison(TileObject obj)
         {
-            // Check if next tile is blocked
-            Point nextIndex = new Point(Index.X + obj.Direction.X, Index.Y + obj.Direction.Y);
-            TileObject nextObj = TileObjectManager.I.GetObject(nextIndex);
+            PushOutOfCollision(obj);
 
-            if (nextObj is Column && Direction == Point.Zero) { return; }
-
-            if (Direction == Point.Zero)
+            if (Direction == Point.Zero && obj is MovingTileObject movingObj)
             {
-                Direction = obj.Direction;
+                Direction = movingObj.Direction;
             }
             else
             {
