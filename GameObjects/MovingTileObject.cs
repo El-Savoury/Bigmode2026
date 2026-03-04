@@ -61,33 +61,37 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public override void Update(GameTime gameTime)
         {
+            // If we are at target tile get our new direction
             if (_targetReached)
             {
                 Index = _tilemap.GetIndexfromWorldPos(Position);
                 GetDirection(Index);
+                _targetReached = false;
             }
 
-            Move(gameTime);
+
+            // Move(targetPos, gameTime);
 
 
-            //Tile currentTile = _tilemap.GetTile("defaultLayer", Index.X, Index.Y);
-            //Enum currentTileType = currentTile.Type;
 
-            //switch (currentTileType)
-            //{
-            //    case TileType.Ice:
+            Tile currentTile = _tilemap.GetTile("defaultLayer", Index.X, Index.Y);
+            Enum currentTileType = currentTile.Type;
 
-            //        break;
+            switch (currentTileType)
+            {
+                case TileType.Ice:
 
-            //    case TileType.Empty:
-            //        _currentState = State.Fall;
-            //        Destroy();
-            //        break;
+                    break;
 
-            //    case TileType.Win:
-            //        Direction = Point.Zero;
-            //        break;
-            //}
+                case TileType.Empty:
+                    _currentState = State.Fall;
+                    Destroy();
+                    break;
+
+                case TileType.Win:
+                    Direction = Point.Zero;
+                    break;
+            }
         }
 
         #endregion Update
@@ -137,11 +141,10 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public void Move(GameTime gameTime)
         {
-            _targetReached = false;
-
+            // Use direction to get next target pos
             Point nextIndex = GetNextIndex(Direction);
-
             Vector2 targetPos = _tilemap.GetTileWorldPos(nextIndex.X, nextIndex.Y);
+
             Position.X += Direction.X * SPEED * Utility.I.DeltaTime(gameTime);
             Position.Y += Direction.Y * SPEED * Utility.I.DeltaTime(gameTime);
 

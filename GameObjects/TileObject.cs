@@ -30,6 +30,8 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         #region Members
 
+        protected Sprite _sprite;
+
         protected Tilemap _tilemap;
 
         public Vector2 Position;
@@ -90,7 +92,10 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         #region Draw
 
-        public abstract void Draw(SpriteBatch spriteBatch);
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            _sprite.Draw(spriteBatch, Position);
+        }
 
         #endregion Draw
 

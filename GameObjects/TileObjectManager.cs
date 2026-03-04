@@ -15,17 +15,23 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         {
             for (int i = 0; i < _tileObjects.Count; i++)
             {
+                _tileObjects[i].Update(gameTime);
+
+            }
+
+            for (int i = 0; i < _tileObjects.Count; i++)
+            {
                 // Check all objects against each other for collisions
                 for (int j = 0; j < _tileObjects.Count; j++)
                 {
                     if (_tileObjects[i] != _tileObjects[j] && _tileObjects[i].Collide(_tileObjects[j]))
                     {
                         _tileObjects[i].ResolveCollison(_tileObjects[j]);
-                        _tileObjects[j].ResolveCollison(_tileObjects[i]);                       
+                        _tileObjects[j].ResolveCollison(_tileObjects[i]);
                     }
                 }
 
-                _tileObjects[i].Update(gameTime);
+                if (_tileObjects[i] is MovingTileObject obj) { obj.Move(gameTime); }
             }
         }
 

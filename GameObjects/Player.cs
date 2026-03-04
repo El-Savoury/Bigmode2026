@@ -11,7 +11,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 {
     public class Player : MovingTileObject
     {
-        AnimatedSprite _sprite;
+        AnimatedSprite _animatedSprite;
         Spritesheet _spritesheet;
 
 
@@ -26,21 +26,21 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             // create spritesheet animation
             _spritesheet.AddAnimation("playerAnim", TimeSpan.FromMilliseconds(200), 0, 1, 2, 3);
 
-            _sprite = new AnimatedSprite(_spritesheet, "playerAnim");
+            _animatedSprite = new AnimatedSprite(_spritesheet, "playerAnim");
         }
 
 
         public override void Update(GameTime gameTime)
         {
-            _sprite.Update(gameTime);
+            _animatedSprite.Update(gameTime);
 
             if (_currentState == State.Move)
             {
-                _sprite.AnimationController.Play();
+                _animatedSprite.AnimationController.Play();
             }
             else
             {
-                _sprite.AnimationController.Stop();
+                _animatedSprite.AnimationController.Stop();
             }
 
             base.Update(gameTime);
@@ -56,7 +56,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            _sprite.Draw(spriteBatch, Position);
+            _animatedSprite.Draw(spriteBatch, Position);
         }
     }
 }
