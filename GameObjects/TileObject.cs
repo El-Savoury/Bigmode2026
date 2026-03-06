@@ -36,7 +36,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public Vector2 Position;
         public Point Index { get; set; }
-        public RectF Bounds => new RectF(Position.X, Position.Y, SIZE, SIZE);
+        public RectF Bounds => new RectF(Position.X, Position.Y, SIZE - 1, SIZE-1);
 
         #endregion Members
 
@@ -51,7 +51,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         {
             Index = new Point(xIndex, yIndex);
             _tilemap = tilemap;
-            Position = _tilemap.GetTileWorldPos(Index.X, Index.Y);
+            Position = _tilemap.IndexToWorldPos(Index.X, Index.Y);
         }
 
         public abstract void LoadContent();

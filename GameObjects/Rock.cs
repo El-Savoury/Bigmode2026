@@ -19,7 +19,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
     {
         public Rock(Tilemap map, int xIndex, int yIndex) : base(map, xIndex, yIndex)
         {
-            Direction = new Point(1,0);
+            Direction = new Point(0, 0);
         }
 
         public override void LoadContent()
@@ -35,19 +35,11 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public override void ResolveCollison(TileObject obj)
         {
-            //PushOutOfCollision(obj);
-            //if (obj is MovingTileObject moveObj)
-            //    Direction = moveObj.Direction;
-
-            //if (Direction == Point.Zero && obj is MovingTileObject movingObj)
-            //{
-            //    Direction = movingObj.Direction;
-            //}
-            //else
-
             PushOutOfCollision(obj);
-            ReverseDirection();
-            
+            if (Direction == Point.Zero && obj is MovingTileObject movingObj)
+            {
+                Direction = movingObj.Direction;
+            }
         }
 
 

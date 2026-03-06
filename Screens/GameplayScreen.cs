@@ -3,9 +3,14 @@ using Bigmode_Game_Jam_2026.Tiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonogameLibrary.Assets;
 using MonogameLibrary.Graphics;
+using MonogameLibrary.Input;
 using MonogameLibrary.Tilemaps;
+using MonogameLibrary.Utilities;
+using System;
+using System.Dynamic;
 
 namespace Bigmode_Game_Jam_2026
 {
@@ -21,6 +26,9 @@ namespace Bigmode_Game_Jam_2026
         const int TILE_HEIGHT = 72;
 
         private Tilemap _tilemap;
+
+        private Point _currentIndex = Point.Zero;
+        private TileObject _currentObject;
 
         #endregion rMembers
 
@@ -45,10 +53,14 @@ namespace Bigmode_Game_Jam_2026
         /// </summary>
         public override void LoadContent(ContentManager content)
         {
+            LoadMap();
+        }
+
+        private void LoadMap()
+        {
             TextureRegion tileTextures = AssetManager.I.GetTextureAtlas("atlas").GetRegion("tileset");
             Tileset tileset = new Tileset("tileset", tileTextures, TILE_WIDTH, TILE_HEIGHT);
 
-            // Load map
             Vector2 mapPos = new Vector2(GetScreenSize().Center.X - (TILE_WIDTH * MAP_SIZE / 2), GetScreenSize().Center.Y - (TILE_HEIGHT * MAP_SIZE / 2));
 
             TilemapLoader _mapLoader = new TilemapLoader();
@@ -70,7 +82,49 @@ namespace Bigmode_Game_Jam_2026
         /// <param name="gameTime">Frame time</param>
         public override void Update(GameTime gameTime)
         {
+            if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.R))
+            {
+                Reset();
+            }
+
+            _currentIndex = GetCurrentIndex();
+
+            // Update currently held object
+            if (_currentObject != null)
+            {
+                _currentObject.Position = _tilemap.IndexToWorldPos(_currentIndex.X, _currentIndex.Y);
+                _currentObject.Index = _currentIndex;
+            }
+
+            if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.Space))
+            {
+                if (_currentObject == null)
+                {
+                    PickUpObject();
+                }
+                else
+                {
+                    DropObject();
+                }
+            }
+
             TileObjectManager.I.Update(gameTime);
+        }
+
+
+        private void PickUpObject()
+        {
+            _currentObject = TileObjectManager.I.GetObject(_currentIndex);
+
+            // Destroy this object on current tile
+            TileObjectManager.I.DestroyObject(_currentObject);
+        }
+
+
+        private void DropObject()
+        {
+            TileObjectManager.I.RegisterObject(_currentObject);
+            _currentObject = null;
         }
 
         #endregion rUpdate
@@ -97,6 +151,12 @@ namespace Bigmode_Game_Jam_2026
             _tilemap.Draw(spriteBatch);
             TileObjectManager.I.Draw(spriteBatch);
 
+            // Draw cursor
+            Vector2 cursorPos = _tilemap.IndexToWorldPos(_currentIndex.X, _currentIndex.Y);
+            Draw2D.I.DrawRect(spriteBatch, (int)cursorPos.X, (int)cursorPos.Y, TILE_WIDTH, TILE_WIDTH, Color.Green * 0.7f);
+
+            if (_currentObject != null) { _currentObject.Draw(spriteBatch); }
+
             spriteBatch.End();
 
             return mScreenTarget;
@@ -111,6 +171,37 @@ namespace Bigmode_Game_Jam_2026
 
 
         #region rUtility
+
+        private Point GetCurrentIndex()
+        {
+            Point index = _currentIndex;
+
+            if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.Right))
+            {
+                index.X++;
+            }
+            else if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.Left))
+            {
+                index.X--;
+            }
+            else if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.Up))
+            {
+                index.Y--;
+            }
+            else if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.Down))
+            {
+                index.Y++;
+            }
+
+            return index;
+        }
+
+
+        private void Reset()
+        {
+            TileObjectManager.I.Clear();
+            LoadMap();
+        }
 
         #endregion rUtility
     }

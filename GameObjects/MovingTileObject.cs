@@ -47,7 +47,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         protected MovingTileObject(Tilemap map, int xIndex, int yIndex) : base(map, xIndex, yIndex)
         {
-            Direction = new Point(1, 0);
+            Direction = Point.Zero;
         }
 
         #endregion Init
@@ -64,13 +64,10 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             // If we are at target tile get our new direction
             if (_targetReached)
             {
-                Index = _tilemap.GetIndexfromWorldPos(Position);
+                Index = _tilemap.WorldPosToIndex(Bounds.Centre);
                 GetDirection(Index);
                 _targetReached = false;
             }
-
-
-            // Move(targetPos, gameTime);
 
 
 
@@ -121,7 +118,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
             }
 
-            obj.Position = _tilemap.GetTileWorldPos(obj.Index.X, obj.Index.Y);
+            obj.Position = _tilemap.IndexToWorldPos(obj.Index.X, obj.Index.Y);
         }
 
         #endregion Collision
@@ -143,7 +140,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         {
             // Use direction to get next target pos
             Point nextIndex = GetNextIndex(Direction);
-            Vector2 targetPos = _tilemap.GetTileWorldPos(nextIndex.X, nextIndex.Y);
+            Vector2 targetPos = _tilemap.IndexToWorldPos(nextIndex.X, nextIndex.Y);
 
             Position.X += Direction.X * SPEED * Utility.I.DeltaTime(gameTime);
             Position.Y += Direction.Y * SPEED * Utility.I.DeltaTime(gameTime);

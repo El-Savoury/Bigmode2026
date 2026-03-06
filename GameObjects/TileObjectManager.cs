@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MonogameLibrary.Graphics;
 using MonogameLibrary.Utilities;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 
 namespace Bigmode_Game_Jam_2026.GameObjects
 {
@@ -34,8 +35,6 @@ namespace Bigmode_Game_Jam_2026.GameObjects
                 if (_tileObjects[i] is MovingTileObject obj) { obj.Move(gameTime); }
             }
         }
-
-
 
 
         public void Draw(SpriteBatch spritebatch)
@@ -74,6 +73,17 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         {
             RemoveObject(tileObject);
             tileObject = null;
+        }
+
+        public void Clear()
+        {
+            _tileObjects.Clear();
+        }
+
+        public void SetPos(ref TileObject obj, Vector2 pos)
+        {
+            int index = _tileObjects.IndexOf(obj);
+            _tileObjects[index].Position = pos;
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonogameLibrary.Assets;
 using MonogameLibrary.Graphics;
+using MonogameLibrary.Input;
 using MonogameLibrary.Tilemaps;
 using System;
 using System.Collections.Generic;
@@ -19,18 +21,45 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         {
         }
 
+
         public override void LoadContent()
         {
             _spritesheet = new Spritesheet(AssetManager.I.GetTextureAtlas("player"));
 
             // create spritesheet animation
             _spritesheet.AddAnimation("playerAnim", TimeSpan.FromMilliseconds(200), 0, 1, 2, 3);
-
             _animatedSprite = new AnimatedSprite(_spritesheet, "playerAnim");
         }
 
 
         public override void Update(GameTime gameTime)
+        {
+            if (Direction == Point.Zero)
+            {
+                if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.D))
+                {
+                    Direction = new Point(1, 0);
+                }
+                else if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.A))
+                {
+                    Direction = new Point(-1, 0);
+                }
+                else if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.W))
+                {
+                    Direction = new Point(0, -1);
+                }
+                else if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.S))
+                {
+                    Direction = new Point(0, 1);
+                }
+            }
+
+            UpdateAnimation(gameTime);
+            base.Update(gameTime);
+        }
+
+
+        private void UpdateAnimation(GameTime gameTime)
         {
             _animatedSprite.Update(gameTime);
 
@@ -42,9 +71,8 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             {
                 _animatedSprite.AnimationController.Stop();
             }
-
-            base.Update(gameTime);
         }
+
 
 
         public override void ResolveCollison(TileObject obj)
