@@ -7,14 +7,14 @@
       "RelativeMoniker": "D:0:0:{479BA34B-0612-4662-8730-58C8BF50D97D}|Bigmode Game Jam 2026.csproj|solutionrelative:screens\\gameplayscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{423A1827-348E-5A4B-8754-EB1A30396626}|..\\MonogameLibrary\\MonogameLibrary.csproj|c:\\users\\ross_\\documents\\programming\\monogamelibrary\\tilemaps\\tilemap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{423A1827-348E-5A4B-8754-EB1A30396626}|..\\MonogameLibrary\\MonogameLibrary.csproj|c:\\users\\ross_\\documents\\programming\\monogamelibrary\\tilemaps\\tileinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{479BA34B-0612-4662-8730-58C8BF50D97D}|Bigmode Game Jam 2026.csproj|c:\\users\\ross_\\documents\\programming\\bigmode game jam 2026\\gameobjects\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{479BA34B-0612-4662-8730-58C8BF50D97D}|Bigmode Game Jam 2026.csproj|solutionrelative:gameobjects\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{423A1827-348E-5A4B-8754-EB1A30396626}|..\\MonogameLibrary\\MonogameLibrary.csproj|c:\\users\\ross_\\documents\\programming\\monogamelibrary\\tilemaps\\tilemap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{423A1827-348E-5A4B-8754-EB1A30396626}|..\\MonogameLibrary\\MonogameLibrary.csproj|c:\\users\\ross_\\documents\\programming\\monogamelibrary\\tilemaps\\tilemaplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -31,7 +31,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\GameObjects\\Player.cs",
               "RelativeDocumentMoniker": "GameObjects\\Player.cs",
@@ -40,8 +40,7 @@
               "ViewState": "AgIAAEAAAAAAAAAAAAAkwAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-07T09:30:59.651Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Bookmark",
@@ -49,13 +48,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Tilemap.cs",
               "DocumentMoniker": "C:\\Users\\ross_\\Documents\\Programming\\MonogameLibrary\\Tilemaps\\Tilemap.cs",
               "RelativeDocumentMoniker": "..\\MonogameLibrary\\Tilemaps\\Tilemap.cs",
               "ToolTip": "C:\\Users\\ross_\\Documents\\Programming\\MonogameLibrary\\Tilemaps\\Tilemap.cs",
               "RelativeToolTip": "..\\MonogameLibrary\\Tilemaps\\Tilemap.cs",
-              "ViewState": "AgIAAN4AAAAAAAAAAAAuwPIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-07T21:55:21.117Z",
               "EditorCaption": ""
@@ -70,12 +69,11 @@
               "RelativeToolTip": "..\\MonogameLibrary\\Tilemaps\\TilemapLayer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-07T21:52:29.552Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-07T21:52:29.552Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "TileInfo.cs",
               "DocumentMoniker": "C:\\Users\\ross_\\Documents\\Programming\\MonogameLibrary\\Tilemaps\\TileInfo.cs",
               "RelativeDocumentMoniker": "..\\MonogameLibrary\\Tilemaps\\TileInfo.cs",
@@ -83,8 +81,7 @@
               "RelativeToolTip": "..\\MonogameLibrary\\Tilemaps\\TileInfo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-07T21:38:21.855Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-07T21:38:21.855Z"
             },
             {
               "$type": "Document",
@@ -94,7 +91,7 @@
               "RelativeDocumentMoniker": "Screens\\GameplayScreen.cs",
               "ToolTip": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\Screens\\GameplayScreen.cs",
               "RelativeToolTip": "Screens\\GameplayScreen.cs",
-              "ViewState": "AgIAAMYAAAAAAAAAAAAQwNcAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAMoAAAAAAAAAAAAAANQAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-04T12:44:20.492Z",
               "EditorCaption": ""
