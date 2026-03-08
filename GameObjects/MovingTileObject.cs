@@ -72,7 +72,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
 
             Tile currentTile = _tilemap.GetTile("defaultLayer", Index.X, Index.Y);
-            Enum currentTileType = currentTile.Type;
+            ushort currentTileType = currentTile.Type;
 
             switch (currentTileType)
             {
@@ -159,7 +159,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         protected void GetDirection(Point index)
         {
-            Enum currentTileType = _tilemap.GetTile("defaultLayer", Index.X, Index.Y).Type;
+            ushort currentTileType = _tilemap.GetTile("defaultLayer", Index.X, Index.Y).Type;
 
             switch (currentTileType)
             {

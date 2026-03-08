@@ -31,7 +31,6 @@ namespace Bigmode_Game_Jam_2026.Tiles
 
         public Tilemap Load(Vector2 pos, Tileset tileset, int tileWidth, int tileHeight, int rows, int cols, string filePath)
         {
-
             Tilemap map = new Tilemap(tileset, pos, tileWidth, tileHeight, rows, cols);
 
             map.AddLayer("defaultLayer");
@@ -88,7 +87,7 @@ namespace Bigmode_Game_Jam_2026.Tiles
 
                         case ROCK:
                             TileObjectManager.I.RegisterObject(new Rock(map, x, y));
-                            map.SetTile("defaultLayer", new Tile(TileType.Ice), x, y);
+                            map.SetTile("defaultLayer", new Tile(TileType.Ice),x, y);
                             break;
 
                         case COLUMN:

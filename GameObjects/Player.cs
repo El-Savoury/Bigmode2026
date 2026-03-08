@@ -6,8 +6,6 @@ using MonogameLibrary.Graphics;
 using MonogameLibrary.Input;
 using MonogameLibrary.Tilemaps;
 using System;
-using System.Collections.Generic;
-
 
 namespace Bigmode_Game_Jam_2026.GameObjects
 {

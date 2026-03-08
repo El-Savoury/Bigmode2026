@@ -61,7 +61,7 @@ namespace Bigmode_Game_Jam_2026
             TextureRegion tileTextures = AssetManager.I.GetTextureAtlas("atlas").GetRegion("tileset");
             Tileset tileset = new Tileset("tileset", tileTextures, TILE_WIDTH, TILE_HEIGHT);
 
-            Vector2 mapPos = new Vector2(GetScreenSize().Center.X - (TILE_WIDTH * MAP_SIZE / 2), GetScreenSize().Center.Y - (TILE_HEIGHT * MAP_SIZE / 2));
+            Vector2 mapPos = new Vector2(GetScreenSize().Center.X - (TILE_WIDTH * MAP_SIZE / 2), GetScreenSize().Center.Y - (TILE_WIDTH * MAP_SIZE / 2));
 
             TilemapLoader _mapLoader = new TilemapLoader();
             _tilemap = _mapLoader.Load(mapPos, tileset, TILE_WIDTH, TILE_WIDTH, 10, 10, "Level1");
@@ -123,6 +123,15 @@ namespace Bigmode_Game_Jam_2026
 
         private void DropObject()
         {
+            // Check if placement tile is a valid placement
+            bool tileOccupied = TileObjectManager.I.GetObject(_currentIndex) != null;
+            ushort tileType = _tilemap.GetTileType("defaultLayer", _currentIndex.X, _currentIndex.Y);
+
+            if (tileOccupied || tileType == TileType.Empty)
+            {
+                return;
+            }
+
             TileObjectManager.I.RegisterObject(_currentObject);
             _currentObject = null;
         }
@@ -193,12 +202,17 @@ namespace Bigmode_Game_Jam_2026
                 index.Y++;
             }
 
+            // Clamp index to bounds of tilemap
+            index.X = Math.Clamp(index.X, 0, _tilemap.Width - 1);
+            index.Y = Math.Clamp(index.Y, 0, _tilemap.Height - 1);
+
             return index;
         }
 
 
         private void Reset()
         {
+            _currentObject = null;
             TileObjectManager.I.Clear();
             LoadMap();
         }
