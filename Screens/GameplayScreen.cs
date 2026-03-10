@@ -205,12 +205,12 @@ namespace Bigmode_Game_Jam_2026
             {
                 if (_currentObject != null) { _currentObject.Draw(spriteBatch); }
 
-                DrawTileGrid(spriteBatch);
+                //DrawTileGrid(spriteBatch);
 
                 // Draw cursor
                 Vector2 cursorPos = _tilemap.IndexToWorldPos(_currentIndex.X, _currentIndex.Y);
                 TextureRegion cursor = _tilemap.Tileset.GetTileTexture(8);
-                cursor.Draw(spriteBatch, cursorPos, Color.Green);             
+                cursor.Draw(spriteBatch, cursorPos, Color.White);             
             }
 
             spriteBatch.End();
