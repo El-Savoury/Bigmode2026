@@ -33,6 +33,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         protected State _currentState = State.Move;
         protected bool _targetReached = false;
+
         public Point Direction { get; set; }
 
         #endregion Members
@@ -45,7 +46,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         #region Init
 
-        protected MovingTileObject(Tilemap map, int xIndex, int yIndex) : base(map, xIndex, yIndex)
+        public MovingTileObject(Tilemap map, int xIndex, int yIndex) : base(map, xIndex, yIndex)
         {
             Direction = Point.Zero;
         }
@@ -67,27 +68,20 @@ namespace Bigmode_Game_Jam_2026.GameObjects
                 Index = _tilemap.WorldPosToIndex(Bounds.Centre);
                 GetDirection(Index);
                 _targetReached = false;
-            }
 
+                Tile currentTile = _tilemap.GetTile(Index.X, Index.Y);
+                ushort currentTileType = currentTile.Type;
 
-
-            Tile currentTile = _tilemap.GetTile("defaultLayer", Index.X, Index.Y);
-            ushort currentTileType = currentTile.Type;
-
-            switch (currentTileType)
-            {
-                case TileType.Ice:
-
-                    break;
-
-                case TileType.Empty:
-                    _currentState = State.Fall;
-                    Destroy();
-                    break;
-
-                case TileType.Win:
-                    Direction = Point.Zero;
-                    break;
+                switch (currentTileType)
+                {
+                    case TileType.Arrow:
+                        currentTile.Rotation = CardinalDir.Right;
+                        break;
+                    case TileType.Empty:
+                        _currentState = State.Fall;
+                        Destroy();
+                        break;
+                }
             }
         }
 
@@ -138,6 +132,8 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public void Move(GameTime gameTime)
         {
+            _targetReached = false;
+
             // Use direction to get next target pos
             Point nextIndex = GetNextIndex(Direction);
             Vector2 targetPos = _tilemap.IndexToWorldPos(nextIndex.X, nextIndex.Y);
@@ -159,29 +155,16 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         protected void GetDirection(Point index)
         {
-            ushort currentTileType = _tilemap.GetTile("defaultLayer", Index.X, Index.Y).Type;
+            Tile currentTile = _tilemap.GetTile(Index.X, Index.Y);
 
-            switch (currentTileType)
+            switch (currentTile.Type)
             {
-                case TileType.Empty:
-                    Direction = Point.Zero;
-                    break;
-                case TileType.Down:
-                    Direction = new Point(0, 1);
-                    break;
-                case TileType.Up:
-                    Direction = new Point(0, -1);
-                    break;
-                case TileType.Left:
-                    Direction = new Point(-1, 0);
-                    break;
-                case TileType.Right:
-                    Direction = new Point(1, 0);
+                case TileType.Arrow:
+                    Direction = CardinalDirExtension.ConvertToPoint(currentTile.Rotation);
                     break;
                 case TileType.Win:
                     Direction = Point.Zero;
                     break;
-
             }
         }
 

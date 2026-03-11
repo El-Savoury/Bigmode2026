@@ -159,7 +159,7 @@ namespace Bigmode_Game_Jam_2026
         {
             // Check if placement tile is a valid placement
             bool tileOccupied = TileObjectManager.I.GetObject(index) != null;
-            ushort tileType = _tilemap.GetTileType("defaultLayer", index.X, index.Y);
+            ushort tileType = _tilemap.GetTileType(index.X, index.Y, "defaultLayer");
 
             if (tileOccupied || tileType == TileType.Empty)
             {
@@ -170,6 +170,7 @@ namespace Bigmode_Game_Jam_2026
             TileObjectManager.I.RegisterObject(_currentObject);
             _currentObject = null;
         }
+
 
         private void UpdateCurrentObject(Point index)
         {

@@ -62,19 +62,19 @@ namespace Bigmode_Game_Jam_2026.Tiles
                             break;
 
                         case UP:
-                            map.SetTile("defaultLayer", new Tile(TileType.Arrow, CardinalDirection.Up), x, y);
+                            map.SetTile("defaultLayer", new Tile(TileType.Arrow, CardinalDir.Up), x, y);
                             break;
 
                         case DOWN:
-                            map.SetTile("defaultLayer", new Tile(TileType.Arrow, CardinalDirection.Down), x, y);
+                            map.SetTile("defaultLayer", new Tile(TileType.Arrow, CardinalDir.Down), x, y);
                             break;
 
                         case LEFT:
-                            map.SetTile("defaultLayer", new Tile(TileType.Arrow, CardinalDirection.Left), x, y);
+                            map.SetTile("defaultLayer", new Tile(TileType.Arrow, CardinalDir.Left), x, y);
                             break;
 
                         case RIGHT:
-                            map.SetTile("defaultLayer", new Tile(TileType.Arrow, CardinalDirection.Right), x, y);
+                            map.SetTile("defaultLayer", new Tile(TileType.Arrow, CardinalDir.Right), x, y);
                             break;
 
                         case PLAYER:
