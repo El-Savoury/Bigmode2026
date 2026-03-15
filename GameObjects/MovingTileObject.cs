@@ -5,6 +5,7 @@ using MonogameLibrary.Maths;
 using MonogameLibrary.Tilemaps;
 using MonogameLibrary.Utilities;
 using System;
+using System.Diagnostics;
 
 namespace Bigmode_Game_Jam_2026.GameObjects
 {
@@ -69,13 +70,15 @@ namespace Bigmode_Game_Jam_2026.GameObjects
                 GetDirection(Index);
                 _targetReached = false;
 
+                // Get any updates from current tile
                 Tile currentTile = _tilemap.GetTile(Index.X, Index.Y);
                 ushort currentTileType = currentTile.Type;
 
                 switch (currentTileType)
                 {
                     case TileType.Arrow:
-                        currentTile.Rotation = CardinalDir.Right;
+                        currentTile.Rotation++;
+                        _tilemap.SetTile("defaultLayer", currentTile, Index.X, Index.Y);
                         break;
                     case TileType.Empty:
                         _currentState = State.Fall;
@@ -83,7 +86,17 @@ namespace Bigmode_Game_Jam_2026.GameObjects
                         break;
                 }
             }
+
+
+            // TODO: Handle collisions here?
+
+            // Move to next index
+            Point nextIndex = GetNextIndex(Direction);
+            Vector2 targetPos = _tilemap.IndexToWorldPos(nextIndex.X, nextIndex.Y);
+            MoveToPos(targetPos, gameTime);
         }
+
+
 
         #endregion Update
 
@@ -130,14 +143,8 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         }
 
 
-        public void Move(GameTime gameTime)
+        public void MoveToPos(Vector2 targetPos, GameTime gameTime)
         {
-            _targetReached = false;
-
-            // Use direction to get next target pos
-            Point nextIndex = GetNextIndex(Direction);
-            Vector2 targetPos = _tilemap.IndexToWorldPos(nextIndex.X, nextIndex.Y);
-
             Position.X += Direction.X * SPEED * Utility.I.DeltaTime(gameTime);
             Position.Y += Direction.Y * SPEED * Utility.I.DeltaTime(gameTime);
 

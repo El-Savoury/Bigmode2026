@@ -36,7 +36,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public Vector2 Position;
         public Point Index { get; set; }
-        public RectF Bounds => new RectF(Position.X, Position.Y, SIZE - 1, SIZE-1);
+        public RectF Bounds => new RectF(Position.X, Position.Y, SIZE - 1, SIZE - 1);
 
         #endregion Members
 
@@ -54,7 +54,10 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             Position = _tilemap.IndexToWorldPos(Index.X, Index.Y);
         }
 
-        public abstract void LoadContent();
+        public virtual void LoadContent()
+        {
+            _sprite.CentreOrigin();
+        }
 
         #endregion Init
 
@@ -83,7 +86,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
 
         public abstract void ResolveCollison(TileObject obj);
-        
+
         #endregion Collision
 
 

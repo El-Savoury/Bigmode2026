@@ -27,6 +27,8 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             // create spritesheet animation
             _spritesheet.AddAnimation("playerAnim", TimeSpan.FromMilliseconds(200), 0, 1, 2, 3);
             _animatedSprite = new AnimatedSprite(_spritesheet, "playerAnim");
+
+
         }
 
 

@@ -17,7 +17,6 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             for (int i = 0; i < _tileObjects.Count; i++)
             {
                 _tileObjects[i].Update(gameTime);
-
             }
 
             for (int i = 0; i < _tileObjects.Count; i++)
@@ -31,8 +30,6 @@ namespace Bigmode_Game_Jam_2026.GameObjects
                         _tileObjects[j].ResolveCollison(_tileObjects[i]);
                     }
                 }
-
-                if (_tileObjects[i] is MovingTileObject obj) { obj.Move(gameTime); }
             }
         }
 

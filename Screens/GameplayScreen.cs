@@ -83,7 +83,7 @@ namespace Bigmode_Game_Jam_2026
             TilemapLoader _mapLoader = new TilemapLoader();
             _tilemap = _mapLoader.Load(mapPos, tileset, TILE_WIDTH, TILE_WIDTH, 10, 10, "Level1");
         }
-
+        
         #endregion Init
 
 
@@ -145,9 +145,13 @@ namespace Bigmode_Game_Jam_2026
         }
 
 
+
         private void PickUpObject(Point index)
         {
             _currentObject = TileObjectManager.I.GetObject(index);
+
+            if( _currentObject is Player || _currentObject is Column) { return; }
+
             _previousIndex = _currentIndex;
 
             // Destroy this object on current tile
@@ -206,12 +210,10 @@ namespace Bigmode_Game_Jam_2026
             {
                 if (_currentObject != null) { _currentObject.Draw(spriteBatch); }
 
-                //DrawTileGrid(spriteBatch);
-
                 // Draw cursor
                 Vector2 cursorPos = _tilemap.IndexToWorldPos(_currentIndex.X, _currentIndex.Y);
                 TextureRegion cursor = _tilemap.Tileset.GetTileTexture(8);
-                cursor.Draw(spriteBatch, cursorPos, Color.White);             
+                cursor.Draw(spriteBatch, cursorPos, Color.White);
             }
 
             spriteBatch.End();
@@ -220,19 +222,19 @@ namespace Bigmode_Game_Jam_2026
         }
 
 
-        private void DrawTileGrid(SpriteBatch spriteBatch)
-        {
-            TextureRegion region = _tilemap.Tileset.GetTileTexture(9);
+        //private void DrawTileGrid(SpriteBatch spriteBatch)
+        //{
+        //    TextureRegion region = _tilemap.Tileset.GetTileTexture(9);
 
-            for (int x = 1; x < _tilemap.Width - 1; x++)
-            {
-                for (int y = 1; y < _tilemap.Height - 1; y++)
-                {
-                    Vector2 pos = new Vector2(_tilemap.Position.X + x * TILE_WIDTH, _tilemap.Position.Y + y * TILE_WIDTH);
-                    region.Draw(spriteBatch, pos, Color.White);
-                }
-            }
-        }
+        //    for (int x = 1; x < _tilemap.Width - 1; x++)
+        //    {
+        //        for (int y = 1; y < _tilemap.Height - 1; y++)
+        //        {
+        //            Vector2 pos = new Vector2(_tilemap.Position.X + x * TILE_WIDTH, _tilemap.Position.Y + y * TILE_WIDTH);
+        //            region.Draw(spriteBatch, pos, Color.White);
+        //        }
+        //    }
+        //}
 
         #endregion Draw
 

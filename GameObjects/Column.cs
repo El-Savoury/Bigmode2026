@@ -23,21 +23,25 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         {
         }
 
+
         public override void LoadContent()
         {
             _sprite = new Sprite(_tilemap.Tileset.GetTileTexture(3));
+
+            base.LoadContent();
         }
+
 
         public override void Update(GameTime gameTime)
         {
             collide = false;
         }
 
+
         public override void ResolveCollison(TileObject obj)
         {
             collide = true;
         }
-
 
 
         public override void Draw(SpriteBatch spriteBatch)
