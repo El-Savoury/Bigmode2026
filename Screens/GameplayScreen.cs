@@ -31,7 +31,7 @@ namespace Bigmode_Game_Jam_2026
 
         const int MAP_SIZE = 10;
         const int TILE_WIDTH = 64;
-        const int TILE_HEIGHT = 72;
+        const int TILE_HEIGHT = 68;
 
         #endregion Constants
 
@@ -46,6 +46,9 @@ namespace Bigmode_Game_Jam_2026
         private Point _currentIndex = new Point(1, 1);
         private Point _previousIndex;
         private GameState _currentGameState = GameState.Play;
+
+        int _levelNum = 1;
+        const int TOTAL_LEVELS = 3;
 
         #endregion Members
 
@@ -70,10 +73,10 @@ namespace Bigmode_Game_Jam_2026
         /// </summary>
         public override void LoadContent(ContentManager content)
         {
-            LoadMap();
+            LoadMap(_levelNum);
         }
 
-        private void LoadMap()
+        private void LoadMap(int levelNumber)
         {
             TextureRegion tileTextures = AssetManager.I.GetTextureAtlas("atlas").GetRegion("tileset");
             Tileset tileset = new Tileset("tileset", tileTextures, TILE_WIDTH, TILE_HEIGHT);
@@ -81,9 +84,11 @@ namespace Bigmode_Game_Jam_2026
             Vector2 mapPos = new Vector2(GetScreenSize().Center.X - (TILE_WIDTH * MAP_SIZE / 2), GetScreenSize().Center.Y - (TILE_WIDTH * MAP_SIZE / 2));
 
             TilemapLoader _mapLoader = new TilemapLoader();
-            _tilemap = _mapLoader.Load(mapPos, tileset, TILE_WIDTH, TILE_WIDTH, 10, 10, "Level1");
+
+            string lvlFilePath = "level" + levelNumber;
+            _tilemap = _mapLoader.Load(mapPos, tileset, TILE_WIDTH, TILE_WIDTH, 10, 10, lvlFilePath);
         }
-        
+
         #endregion Init
 
 
@@ -101,6 +106,17 @@ namespace Bigmode_Game_Jam_2026
         {
             if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.R))
             {
+                Reset();
+            }
+
+            if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.NumPad1))
+            {
+                if (_levelNum > 1) { _levelNum--; }
+                Reset();
+            }
+            if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.NumPad3))
+            {
+                if (_levelNum < TOTAL_LEVELS) { _levelNum++; }
                 Reset();
             }
 
@@ -148,10 +164,11 @@ namespace Bigmode_Game_Jam_2026
 
         private void PickUpObject(Point index)
         {
-            _currentObject = TileObjectManager.I.GetObject(index);
+            TileObject obj = TileObjectManager.I.GetObject(index);
 
-            if( _currentObject is Player || _currentObject is Column) { return; }
+            if (obj is Player || obj is Column) { return; }
 
+            _currentObject = obj;
             _previousIndex = _currentIndex;
 
             // Destroy this object on current tile
@@ -279,7 +296,7 @@ namespace Bigmode_Game_Jam_2026
         {
             _currentObject = null;
             TileObjectManager.I.Clear();
-            LoadMap();
+            LoadMap(_levelNum);
         }
 
 

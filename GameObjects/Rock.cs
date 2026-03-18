@@ -42,6 +42,8 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             {
                 Direction = movingObj.Direction;
             }
+
+            ReverseDirection();
         }
 
 
@@ -49,7 +51,6 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         {
             base.Draw(spriteBatch);
         }
-
     }
 }
 

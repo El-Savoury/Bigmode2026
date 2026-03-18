@@ -36,7 +36,7 @@ namespace Bigmode_Game_Jam_2026.Tiles
             map.AddLayer("defaultLayer");
             map.AddTileType(TileType.Empty, 0);
             map.AddTileType(TileType.Ice, 1);
-            map.AddTileType(TileType.Win, 2);
+            map.AddTileType(TileType.Win, 9);
             map.AddTileType(TileType.Arrow, 5);          
 
             string[,] tileData = GetTileData(filePath);
@@ -111,7 +111,7 @@ namespace Bigmode_Game_Jam_2026.Tiles
         /// <returns></returns>
         private static string[,] GetTileData(string filePath)
         {
-            string[] mapData = File.ReadAllLines($"Content/Files/Level1.txt");
+            string[] mapData = File.ReadAllLines($"Content/Files/{filePath}.txt");
             var width = mapData[0].Length;
             var height = mapData.Length;
 

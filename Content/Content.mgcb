@@ -16,6 +16,12 @@
 #begin Files/Level1.txt
 /copy:Files/Level1.txt
 
+#begin Files/Level2.txt
+/copy:Files/Level2.txt
+
+#begin Files/Level3.txt
+/copy:Files/Level3.txt
+
 #begin Sprites/player.png
 /importer:TextureImporter
 /processor:TextureProcessor
