@@ -12,27 +12,29 @@ namespace Bigmode_Game_Jam_2026.GameObjects
     public class Player : MovingTileObject
     {
         AnimatedSprite _animatedSprite;
-        Spritesheet _spritesheet;
-
 
         public Player(Tilemap map, int xIndex, int yIndex) : base(map, xIndex, yIndex)
         {
+            _currentState = State.Idle;
         }
 
 
         public override void LoadContent()
         {
-            _spritesheet = new Spritesheet(AssetManager.I.GetTextureAtlas("player"));
+            Spritesheet _spritesheet = new Spritesheet(AssetManager.I.GetTextureAtlas("tileset"));
 
-            // create spritesheet animation
-            _spritesheet.AddAnimation("playerAnim", TimeSpan.FromMilliseconds(200), 0, 1, 2, 3);
-            _animatedSprite = new AnimatedSprite(_spritesheet, "playerAnim");
+            // Create spritesheet animation
+            bool isLooping = true;
+            _spritesheet.AddAnimation("idleAnim", TimeSpan.FromMilliseconds(300), isLooping, 12, 13);
+            _spritesheet.AddAnimation("moveAnim", TimeSpan.FromMilliseconds(300), isLooping, 16);
+
+            _animatedSprite = new AnimatedSprite(_spritesheet, "idleAnim");
         }
 
 
         public override void Update(GameTime gameTime)
         {
-            if (Direction == Point.Zero)
+            if (_currentState == State.Idle)
             {
                 if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.D))
                 {
@@ -50,6 +52,11 @@ namespace Bigmode_Game_Jam_2026.GameObjects
                 {
                     Direction = new Point(0, 1);
                 }
+
+                if (Direction != Point.Zero)
+                {
+                    _currentState = State.Move;
+                }
             }
 
             UpdateAnimation(gameTime);
@@ -59,16 +66,23 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         private void UpdateAnimation(GameTime gameTime)
         {
-            _animatedSprite.Update(gameTime);
+            if (_currentState != _previousState)
+            {
+                switch (_currentState)
+                {
+                    case State.Idle:
+                        _animatedSprite.SetAnimation("idleAnim");
+                        break;
+                    case State.Move:
+                        _animatedSprite.SetAnimation("moveAnim");
+                        break;
+                }
+            }
 
-            if (_currentState == State.Move)
-            {
-                _animatedSprite.AnimationController.Play();
-            }
-            else
-            {
-                _animatedSprite.AnimationController.Stop();
-            }
+            // Flip sprite facing direction based on move direction
+            _animatedSprite.Effects = Direction.X < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
+            _animatedSprite.Update(gameTime);
         }
 
 

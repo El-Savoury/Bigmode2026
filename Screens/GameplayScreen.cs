@@ -5,12 +5,14 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonogameLibrary.Assets;
+using MonogameLibrary.Entities;
 using MonogameLibrary.Graphics;
 using MonogameLibrary.Input;
 using MonogameLibrary.Tilemaps;
 using MonogameLibrary.Utilities;
 using System;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Bigmode_Game_Jam_2026
 {
@@ -31,7 +33,7 @@ namespace Bigmode_Game_Jam_2026
 
         const int MAP_SIZE = 10;
         const int TILE_WIDTH = 64;
-        const int TILE_HEIGHT = 68;
+        const int TILE_HEIGHT = 64;
 
         #endregion Constants
 
@@ -76,17 +78,18 @@ namespace Bigmode_Game_Jam_2026
             LoadMap(_levelNum);
         }
 
+
         private void LoadMap(int levelNumber)
         {
-            TextureRegion tileTextures = AssetManager.I.GetTextureAtlas("atlas").GetRegion("tileset");
+            TextureRegion tileTextures = AssetManager.I.GetTextureAtlas("tileset").GetRegion("tileset");
             Tileset tileset = new Tileset("tileset", tileTextures, TILE_WIDTH, TILE_HEIGHT);
 
-            Vector2 mapPos = new Vector2(GetScreenSize().Center.X - (TILE_WIDTH * MAP_SIZE / 2), GetScreenSize().Center.Y - (TILE_WIDTH * MAP_SIZE / 2));
+            Vector2 mapPos = new Vector2(GetScreenSize().Center.X - (TILE_WIDTH * MAP_SIZE / 2), GetScreenSize().Center.Y - (TILE_HEIGHT * MAP_SIZE / 2));
 
             TilemapLoader _mapLoader = new TilemapLoader();
 
             string lvlFilePath = "level" + levelNumber;
-            _tilemap = _mapLoader.Load(mapPos, tileset, TILE_WIDTH, TILE_WIDTH, 10, 10, lvlFilePath);
+            _tilemap = _mapLoader.Load(mapPos, tileset, TILE_WIDTH, TILE_HEIGHT, 10, 10, lvlFilePath);
         }
 
         #endregion Init
@@ -237,21 +240,6 @@ namespace Bigmode_Game_Jam_2026
 
             return mScreenTarget;
         }
-
-
-        //private void DrawTileGrid(SpriteBatch spriteBatch)
-        //{
-        //    TextureRegion region = _tilemap.Tileset.GetTileTexture(9);
-
-        //    for (int x = 1; x < _tilemap.Width - 1; x++)
-        //    {
-        //        for (int y = 1; y < _tilemap.Height - 1; y++)
-        //        {
-        //            Vector2 pos = new Vector2(_tilemap.Position.X + x * TILE_WIDTH, _tilemap.Position.Y + y * TILE_WIDTH);
-        //            region.Draw(spriteBatch, pos, Color.White);
-        //        }
-        //    }
-        //}
 
         #endregion Draw
 

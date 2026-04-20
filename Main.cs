@@ -39,14 +39,9 @@ namespace Bigmode_Game_Jam_2026
         {
             // Tileset texture atlas
             Texture2D tilesetTexture = Content.Load<Texture2D>("tileset");
-            TextureAtlas atlas = TextureAtlas.FromGrid("atlas", tilesetTexture, 64, 72);
-            atlas.AddRegion("tileset", 0, 0, tilesetTexture.Width, tilesetTexture.Height);
-            AssetManager.I.AddTextureAtlas("atlas", atlas);
-
-            // Player texture atlas
-            Texture2D playerTexture = Content.Load<Texture2D>("Sprites/player");
-            TextureAtlas playerAtlas = TextureAtlas.FromGrid("player", playerTexture, 64, 64);
-            AssetManager.I.AddTextureAtlas("player", playerAtlas);
+            TextureAtlas tilesetAtlas = TextureAtlas.FromGrid("tileset", tilesetTexture, 64, 64);
+            tilesetAtlas.AddRegion("tileset", 0, 0, tilesetTexture.Width, tilesetTexture.Height);
+            AssetManager.I.AddTextureAtlas("tileset", tilesetAtlas);
 
             ScreenManager.LoadAllScreens(Graphics, Content);
             ScreenManager.ActivateScreen(ScreenType.Gameplay);
