@@ -37,7 +37,6 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public override void ResolveCollison(TileObject obj)
         {
-            PushOutOfCollision(obj);
             if (Direction == Point.Zero && obj is MovingTileObject movingObj)
             {
                 Direction = movingObj.Direction;

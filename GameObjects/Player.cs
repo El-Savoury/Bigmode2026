@@ -26,7 +26,8 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             // Create spritesheet animation
             bool isLooping = true;
             _spritesheet.AddAnimation("idleAnim", TimeSpan.FromMilliseconds(300), isLooping, 12, 13);
-            _spritesheet.AddAnimation("moveAnim", TimeSpan.FromMilliseconds(300), isLooping, 16);
+            _spritesheet.AddAnimation("moveAnim", TimeSpan.FromMilliseconds(300), isLooping, 14);
+            _spritesheet.AddAnimation("fallAnim", TimeSpan.FromMilliseconds(300), !isLooping, 17, 18, 19, 16);
 
             _animatedSprite = new AnimatedSprite(_spritesheet, "idleAnim");
         }
@@ -59,6 +60,11 @@ namespace Bigmode_Game_Jam_2026.GameObjects
                 }
             }
 
+            if (Direction == Point.Zero && _currentState != State.Idle)
+            {
+                _currentState = State.Fall;
+            }
+
             UpdateAnimation(gameTime);
             base.Update(gameTime);
         }
@@ -76,6 +82,9 @@ namespace Bigmode_Game_Jam_2026.GameObjects
                     case State.Move:
                         _animatedSprite.SetAnimation("moveAnim");
                         break;
+                    case State.Fall:
+                        _animatedSprite.SetAnimation("fallAnim");
+                        break;
                 }
             }
 
@@ -89,7 +98,6 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public override void ResolveCollison(TileObject obj)
         {
-            PushOutOfCollision(obj);
             ReverseDirection();
         }
 

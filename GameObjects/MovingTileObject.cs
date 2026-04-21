@@ -19,7 +19,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
     {
         #region Constants
 
-        //  private const float SPEED = 220f;
+        protected int MOVE_COOLDOWN_TIME = 200;
 
         #endregion Constants
 
@@ -31,12 +31,9 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         #region Members
 
         protected Timer _moveTimer = new Timer();
-        protected int moveCooldownTime = 200;
 
         protected State _currentState;
         protected State _previousState;
-
-        //protected bool _targetReached = false;
 
         public Point Direction { get; set; }
 
@@ -74,46 +71,17 @@ namespace Bigmode_Game_Jam_2026.GameObjects
                 Index = GetNextIndex(Direction);
             }
 
-            if (_moveTimer.ElapsedTime > moveCooldownTime)
+            if (_moveTimer.ElapsedTime > MOVE_COOLDOWN_TIME)
             {
+                GetDirection(Index);
+
                 Index = GetNextIndex(Direction);
                 _moveTimer.Reset();
             }
 
             Position = _tilemap.IndexToWorldPos(Index.X, Index.Y);
-            
-
-            //// If we are at target tile get our new direction
-            //if (_targetReached)
-            //{
-            //    Index = _tilemap.WorldPosToIndex(Bounds.Centre);
-            //    GetDirection(Index);
-            //    _targetReached = false;
-
-            //    // Get any updates from current tile
-            //    Tile currentTile = _tilemap.GetTile(Index.X, Index.Y);
-            //    ushort currentTileType = currentTile.Type;
-
-            //    switch (currentTileType)
-            //    {
-            //        case TileType.Arrow:
-            //            currentTile.Rotation++;
-            //            _tilemap.SetTile("defaultLayer", currentTile, Index.X, Index.Y);
-            //            break;
-            //        case TileType.Empty:
-            //            _currentState = State.Fall;
-            //            Destroy();
-            //            break;
-            //    }
 
             _previousState = _currentState;
-
-            // TODO: Handle collisions here?
-
-            //// Move to next index
-            //Point nextIndex = GetNextIndex(Direction);
-            //Vector2 targetPos = _tilemap.IndexToWorldPos(nextIndex.X, nextIndex.Y);
-            //MoveToPos(targetPos, gameTime);
         }
 
 
@@ -127,26 +95,6 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         #region Collision
 
-        public void PushOutOfCollision(TileObject obj)
-        {
-            RectF rect = obj.Bounds;
-
-            float overlapX = Math.Min(Bounds.Right - rect.Left, rect.Right - Bounds.Left);
-            float overlapY = Math.Min(Bounds.Bottom - rect.Top, rect.Bottom - Bounds.Top);
-
-            if (overlapX < overlapY)
-            {
-                Position.X += Bounds.Centre.X > rect.Centre.X ? overlapX : -overlapX;
-
-            }
-            else
-            {
-                Position.Y += Bounds.Centre.Y > rect.Centre.Y ? overlapY : -overlapY;
-
-            }
-
-            obj.Position = _tilemap.IndexToWorldPos(obj.Index.X, obj.Index.Y);
-        }
 
         #endregion Collision
 
@@ -163,23 +111,6 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         }
 
 
-        //public void MoveToPos(Vector2 targetPos, GameTime gameTime)
-        //{
-        //    Position.X += Direction.X * SPEED * Utility.I.DeltaTime(gameTime);
-        //    Position.Y += Direction.Y * SPEED * Utility.I.DeltaTime(gameTime);
-
-        //    // Make sure we dont overshoot the next tile pos when moving
-        //    if (Direction.X == 1 && Position.X >= targetPos.X ||
-        //        Direction.Y == 1 && Position.Y >= targetPos.Y ||
-        //        Direction.X == -1 && Position.X <= targetPos.X ||
-        //        Direction.Y == -1 && Position.Y <= targetPos.Y)
-        //    {
-        //        Position = targetPos;
-        //        _targetReached = true;
-        //    }
-        //}
-
-
         protected void GetDirection(Point index)
         {
             Tile currentTile = _tilemap.GetTile(Index.X, Index.Y);
@@ -188,7 +119,17 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             {
                 case TileType.Arrow:
                     Direction = CardinalDirExtension.ConvertToPoint(currentTile.Rotation);
+
+                    // TODO: Change the way rotation is incremeted on tiles
+                    // so they dont have to be reinstantiated each time
+                    currentTile.Rotation++;
+                    _tilemap.SetTile("defaultLayer", currentTile, Index.X, Index.Y);
                     break;
+
+                case TileType.Empty:
+                    Direction = Point.Zero;
+                    break;
+
                 case TileType.Win:
                     Direction = Point.Zero;
                     break;

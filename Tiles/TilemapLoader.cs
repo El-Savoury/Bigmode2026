@@ -37,7 +37,7 @@ namespace Bigmode_Game_Jam_2026.Tiles
             map.AddTileType(TileType.Empty, 0);
             map.AddTileType(TileType.Ice, 1);
             map.AddTileType(TileType.Win, 10);
-            map.AddTileType(TileType.Arrow, 5);          
+            map.AddTileType(TileType.Arrow, 4);          
 
             string[,] tileData = GetTileData(filePath);
 

@@ -160,6 +160,7 @@ namespace Bigmode_Game_Jam_2026
                 ToggleGameState();
             }
 
+
             TileObjectManager.I.Update(gameTime);
         }
 
