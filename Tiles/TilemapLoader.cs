@@ -12,14 +12,15 @@ namespace Bigmode_Game_Jam_2026.Tiles
 
         const string EMPTY = "0";
         const string ICE = "1";
-        const string WIN = "9";
-        const string UP = "8";
         const string DOWN = "2";
         const string LEFT = "4";
         const string RIGHT = "6";
+        const string UP = "8";
+        const string WIN = "9";
         const string PLAYER = "P";
         const string COLUMN = "C";
         const string ROCK = "R";
+        const string WALL = "W";
 
         #endregion rConstants
 
@@ -36,8 +37,9 @@ namespace Bigmode_Game_Jam_2026.Tiles
             map.AddLayer("defaultLayer");
             map.AddTileType(TileType.Empty, 0);
             map.AddTileType(TileType.Ice, 1);
+            map.AddTileType(TileType.Wall, 3);
+            map.AddTileType(TileType.Arrow, 4);
             map.AddTileType(TileType.Win, 10);
-            map.AddTileType(TileType.Arrow, 4);          
 
             string[,] tileData = GetTileData(filePath);
 
@@ -55,6 +57,12 @@ namespace Bigmode_Game_Jam_2026.Tiles
 
                         case ICE:
                             map.SetTile("defaultLayer", new Tile(TileType.Ice), x, y);
+                            break;
+
+                        case WALL:
+                            Tile wallTile = new Tile(TileType.Wall);
+                            wallTile.AddFlag(TileFlags.Solid);
+                            map.SetTile("defaultLayer", wallTile, x, y);
                             break;
 
                         case WIN:

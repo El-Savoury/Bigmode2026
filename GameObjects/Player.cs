@@ -27,7 +27,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             bool isLooping = true;
             _spritesheet.AddAnimation("idleAnim", TimeSpan.FromMilliseconds(300), isLooping, 12, 13);
             _spritesheet.AddAnimation("moveAnim", TimeSpan.FromMilliseconds(300), isLooping, 14);
-            _spritesheet.AddAnimation("fallAnim", TimeSpan.FromMilliseconds(300), !isLooping, 17, 18, 19, 16);
+            _spritesheet.AddAnimation("fallAnim", TimeSpan.FromMilliseconds(200), !isLooping, 17, 18, 19, 16);
 
             _animatedSprite = new AnimatedSprite(_spritesheet, "idleAnim");
         }
@@ -89,7 +89,14 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             }
 
             // Flip sprite facing direction based on move direction
-            _animatedSprite.Effects = Direction.X < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            if (Direction.X == -1)
+            {
+                _animatedSprite.Effects = SpriteEffects.FlipHorizontally;
+            }
+            else if (Direction.X == 1)
+            {
+                _animatedSprite.Effects = SpriteEffects.None;
+            }
 
             _animatedSprite.Update(gameTime);
         }

@@ -1,9 +1,8 @@
 ﻿using Bigmode_Game_Jam_2026.Tiles;
 using Microsoft.Xna.Framework;
-using MonogameLibrary.Maths;
+using Microsoft.Xna.Framework.Graphics;
 using MonogameLibrary.Tilemaps;
 using MonogameLibrary.Utilities;
-using System;
 
 namespace Bigmode_Game_Jam_2026.GameObjects
 {
@@ -28,7 +27,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
 
 
-        #region Members
+        #region Properties
 
         protected Timer _moveTimer = new Timer();
 
@@ -37,7 +36,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public Point Direction { get; set; }
 
-        #endregion Members
+        #endregion Properties
 
 
 
@@ -65,7 +64,9 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         {
             _moveTimer.Update(gameTime);
 
-            if (_currentState == State.Move && !_moveTimer.IsRunning)
+            bool canMove = _currentState == State.Move && !_moveTimer.IsRunning;
+
+            if (canMove)
             {
                 _moveTimer.Start();
                 Index = GetNextIndex(Direction);
@@ -74,9 +75,19 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             if (_moveTimer.ElapsedTime > MOVE_COOLDOWN_TIME)
             {
                 GetDirection(Index);
+                Point nextIndex = GetNextIndex(Direction);
 
-                Index = GetNextIndex(Direction);
-                _moveTimer.Reset();
+                if (_tilemap.GetTile(nextIndex, "defaultLayer").HasFlag(TileFlags.Solid))
+                {
+                    ReverseDirection();
+                    Index = GetNextIndex(Direction);
+                }
+                else
+                {
+                    Index = nextIndex;
+                }
+
+                    _moveTimer.Reset();
             }
 
             Position = _tilemap.IndexToWorldPos(Index.X, Index.Y);
@@ -92,18 +103,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
 
 
-
-        #region Collision
-
-
-        #endregion Collision
-
-
-
-
-
-
-        #region Utility
+        #region Util
 
         public Point GetNextIndex(Point direction)
         {
@@ -113,7 +113,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         protected void GetDirection(Point index)
         {
-            Tile currentTile = _tilemap.GetTile(Index.X, Index.Y);
+            Tile currentTile = _tilemap.GetTile(Index.X, Index.Y, "defaultLayer");
 
             switch (currentTile.Type)
             {
@@ -129,10 +129,6 @@ namespace Bigmode_Game_Jam_2026.GameObjects
                 case TileType.Empty:
                     Direction = Point.Zero;
                     break;
-
-                case TileType.Win:
-                    Direction = Point.Zero;
-                    break;
             }
         }
 
@@ -142,6 +138,6 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             Direction = new Point(-Direction.X, -Direction.Y);
         }
 
-        #endregion Utility
+        #endregion Util
     }
 }
