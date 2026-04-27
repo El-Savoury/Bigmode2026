@@ -11,15 +11,21 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Content\bin\DesktopGL\Content\Sprites\**" />
     <Compile Remove="Content\Files\**" />
     <Compile Remove="Content\NewFolder1\**" />
     <Compile Remove="Content\NewFolder\**" />
+    <Compile Remove="Content\obj\DesktopGL\net8.0\Content\Sprites\**" />
+    <EmbeddedResource Remove="Content\bin\DesktopGL\Content\Sprites\**" />
     <EmbeddedResource Remove="Content\Files\**" />
     <EmbeddedResource Remove="Content\NewFolder1\**" />
     <EmbeddedResource Remove="Content\NewFolder\**" />
+    <EmbeddedResource Remove="Content\obj\DesktopGL\net8.0\Content\Sprites\**" />
+    <None Remove="Content\bin\DesktopGL\Content\Sprites\**" />
     <None Remove="Content\Files\**" />
     <None Remove="Content\NewFolder1\**" />
     <None Remove="Content\NewFolder\**" />
+    <None Remove="Content\obj\DesktopGL\net8.0\Content\Sprites\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Content\Level1.txt" />

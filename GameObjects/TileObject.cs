@@ -52,6 +52,11 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             Index = new Point(xIndex, yIndex);
             _tilemap = tilemap;
             Position = _tilemap.IndexToWorldPos(Index.X, Index.Y);
+
+            // TODO: Work out why you cant add flag without resetting tile
+            Tile tile = _tilemap.GetTile(Index, "defaultLayer");
+            tile.AddFlag(TileFlags.Occupied);
+            _tilemap.SetTile("defaultLayer", tile ,xIndex,yIndex);
         }
 
         public virtual void LoadContent()

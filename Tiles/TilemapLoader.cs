@@ -35,11 +35,11 @@ namespace Bigmode_Game_Jam_2026.Tiles
             Tilemap map = new Tilemap(tileset, pos, tileWidth, tileHeight, rows, cols);
 
             map.AddLayer("defaultLayer");
-            map.AddTileType(TileType.Empty, 0);
-            map.AddTileType(TileType.Ice, 1);
-            map.AddTileType(TileType.Wall, 3);
-            map.AddTileType(TileType.Arrow, 4);
-            map.AddTileType(TileType.Win, 10);
+            map.AddTileType(TileType.Empty, 0, TileCollision.None);
+            map.AddTileType(TileType.Ice, 1, TileCollision.Passable);
+            map.AddTileType(TileType.Wall, 3, TileCollision.Solid);
+            map.AddTileType(TileType.Arrow, 4, TileCollision.Passable);
+            map.AddTileType(TileType.Win, 10, TileCollision.Passable);
 
             string[,] tileData = GetTileData(filePath);
 
@@ -60,9 +60,7 @@ namespace Bigmode_Game_Jam_2026.Tiles
                             break;
 
                         case WALL:
-                            Tile wallTile = new Tile(TileType.Wall);
-                            wallTile.AddFlag(TileFlags.Solid);
-                            map.SetTile("defaultLayer", wallTile, x, y);
+                            map.SetTile("defaultLayer", new Tile(TileType.Wall), x, y);
                             break;
 
                         case WIN:
@@ -86,18 +84,18 @@ namespace Bigmode_Game_Jam_2026.Tiles
                             break;
 
                         case PLAYER:
-                            TileObjectManager.I.RegisterObject(new Player(map, x, y));
                             map.SetTile("defaultLayer", new Tile(TileType.Ice), x, y);
+                            TileObjectManager.I.RegisterObject(new Player(map, x, y));                           
                             break;
 
                         case ROCK:
-                            TileObjectManager.I.RegisterObject(new Rock(map, x, y));
                             map.SetTile("defaultLayer", new Tile(TileType.Ice), x, y);
+                            TileObjectManager.I.RegisterObject(new Rock(map, x, y));
                             break;
 
                         case COLUMN:
-                            TileObjectManager.I.RegisterObject(new Column(map, x, y));
                             map.SetTile("defaultLayer", new Tile(TileType.Ice), x, y);
+                            TileObjectManager.I.RegisterObject(new Column(map, x, y));                         
                             break;
 
                         default:

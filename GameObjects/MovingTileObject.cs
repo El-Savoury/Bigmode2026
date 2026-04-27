@@ -77,7 +77,9 @@ namespace Bigmode_Game_Jam_2026.GameObjects
                 GetDirection(Index);
                 Point nextIndex = GetNextIndex(Direction);
 
-                if (_tilemap.GetTile(nextIndex, "defaultLayer").HasFlag(TileFlags.Solid))
+                TileInfo nextTile = _tilemap.GetTileInfo(nextIndex, "defaultLayer");
+
+                if (nextTile.IsSolid || _tilemap.GetTile(nextIndex, "defaultLayer").HasFlag(TileFlags.Occupied))
                 {
                     ReverseDirection();
                     Index = GetNextIndex(Direction);
@@ -85,9 +87,12 @@ namespace Bigmode_Game_Jam_2026.GameObjects
                 else
                 {
                     Index = nextIndex;
+
+                    // Set the tile we moved to as occupied
+                    _tilemap.GetTile(Index, "defaultLayer").AddFlag(TileFlags.Occupied);
                 }
 
-                    _moveTimer.Reset();
+                _moveTimer.Reset();
             }
 
             Position = _tilemap.IndexToWorldPos(Index.X, Index.Y);
@@ -115,12 +120,12 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         {
             Tile currentTile = _tilemap.GetTile(Index.X, Index.Y, "defaultLayer");
 
-            switch (currentTile.Type)
+            switch (currentTile.TileType)
             {
                 case TileType.Arrow:
                     Direction = CardinalDirExtension.ConvertToPoint(currentTile.Rotation);
 
-                    // TODO: Change the way rotation is incremeted on tiles
+                    // TODO: Change the way rotation is incremented on tiles
                     // so they dont have to be reinstantiated each time
                     currentTile.Rotation++;
                     _tilemap.SetTile("defaultLayer", currentTile, Index.X, Index.Y);
