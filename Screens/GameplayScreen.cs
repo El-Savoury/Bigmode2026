@@ -12,6 +12,7 @@ using MonogameLibrary.Tilemaps;
 using MonogameLibrary.Utilities;
 using System;
 using System.Reflection;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 
 namespace Bigmode_Game_Jam_2026
@@ -52,6 +53,8 @@ namespace Bigmode_Game_Jam_2026
         int _levelNum = 1;
         const int TOTAL_LEVELS = 3;
 
+        TileCursor _tileCursor;
+
         #endregion Members
 
 
@@ -76,6 +79,8 @@ namespace Bigmode_Game_Jam_2026
         public override void LoadContent(ContentManager content)
         {
             LoadMap(_levelNum);
+
+            _tileCursor = new TileCursor(_tilemap, _currentIndex.X, _currentIndex.Y);
         }
 
 
@@ -123,27 +128,23 @@ namespace Bigmode_Game_Jam_2026
                 Reset();
             }
 
-
+            // Handle edit mode
             if (_currentGameState == GameState.Edit)
             {
                 _currentIndex = GetCurrentIndex();
-
-                // Update currently held object
-                if (_currentObject != null)
-                {
-                    UpdateCurrentObject(_currentIndex);
-                }
+                _tileCursor.Update(gameTime, _currentIndex);
 
                 // Move objects
                 if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.Space))
                 {
-                    if (_currentObject == null)
+                    if (!_tileCursor.IsHoldingObject)
                     {
-                        PickUpObject(_currentIndex);
+                        _tileCursor.PickUpObject(_currentIndex);
+                        _previousIndex = _currentIndex;
                     }
                     else
                     {
-                        DropObject(_currentIndex);
+                        _tileCursor.DropObject(_currentIndex);
                     }
                 }
             }
@@ -152,55 +153,15 @@ namespace Bigmode_Game_Jam_2026
             if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.E))
             {
                 // Return current object to prev index
-                if (_currentObject != null)
+                if (_tileCursor.IsHoldingObject)
                 {
-                    DropObject(_previousIndex);
+                    _tileCursor.DropObject(_previousIndex);
                 }
 
                 ToggleGameState();
             }
 
-
             TileObjectManager.I.Update(gameTime);
-        }
-
-
-
-        private void PickUpObject(Point index)
-        {
-            TileObject obj = TileObjectManager.I.GetObject(index);
-
-            if (obj is Player || obj is Column) { return; }
-
-            _currentObject = obj;
-            _previousIndex = _currentIndex;
-
-            // Destroy this object on current tile
-            TileObjectManager.I.DestroyObject(_currentObject);
-        }
-
-
-        private void DropObject(Point index)
-        {
-            // Check if placement tile is a valid placement
-            bool tileOccupied = TileObjectManager.I.GetObject(index) != null;
-            ushort tileType = _tilemap.GetTileType(index.X, index.Y, "defaultLayer");
-
-            if (tileOccupied || tileType == TileType.Empty)
-            {
-                return;
-            }
-
-            UpdateCurrentObject(index);
-            TileObjectManager.I.RegisterObject(_currentObject);
-            _currentObject = null;
-        }
-
-
-        private void UpdateCurrentObject(Point index)
-        {
-            _currentObject.Position = _tilemap.IndexToWorldPos(index.X, index.Y);
-            _currentObject.Index = index;
         }
 
         #endregion Update
@@ -229,12 +190,7 @@ namespace Bigmode_Game_Jam_2026
 
             if (_currentGameState == GameState.Edit)
             {
-                if (_currentObject != null) { _currentObject.Draw(spriteBatch); }
-
-                // Draw cursor
-                Vector2 cursorPos = _tilemap.IndexToWorldPos(_currentIndex.X, _currentIndex.Y);
-                TextureRegion cursor = _tilemap.Tileset.GetTileTexture(8);
-                cursor.Draw(spriteBatch, cursorPos, Color.White);
+                _tileCursor.Draw(spriteBatch);
             }
 
             spriteBatch.End();
@@ -256,19 +212,19 @@ namespace Bigmode_Game_Jam_2026
         {
             Point index = _currentIndex;
 
-            if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.Right))
+            if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.D))
             {
                 index.X++;
             }
-            else if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.Left))
+            else if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.A))
             {
                 index.X--;
             }
-            else if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.Up))
+            else if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.W))
             {
                 index.Y--;
             }
-            else if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.Down))
+            else if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.S))
             {
                 index.Y++;
             }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonogameLibrary.Assets;
@@ -101,14 +102,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             _animatedSprite.Update(gameTime);
         }
 
-
-
-        public override void ResolveCollison(TileObject obj)
-        {
-            ReverseDirection();
-        }
-
-
+        
         public override void Draw(SpriteBatch spriteBatch)
         {
             _animatedSprite.Draw(spriteBatch, Position);

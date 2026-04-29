@@ -33,23 +33,6 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         {
             base.Update(gameTime);
         }
-
-
-        public override void ResolveCollison(TileObject obj)
-        {
-            if (Direction == Point.Zero && obj is MovingTileObject movingObj)
-            {
-                Direction = movingObj.Direction;
-            }
-
-            ReverseDirection();
-        }
-
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            base.Draw(spriteBatch);
-        }
     }
 }
 

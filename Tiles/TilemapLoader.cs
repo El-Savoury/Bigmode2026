@@ -18,7 +18,6 @@ namespace Bigmode_Game_Jam_2026.Tiles
         const string UP = "8";
         const string WIN = "9";
         const string PLAYER = "P";
-        const string COLUMN = "C";
         const string ROCK = "R";
         const string WALL = "W";
 
@@ -85,17 +84,12 @@ namespace Bigmode_Game_Jam_2026.Tiles
 
                         case PLAYER:
                             map.SetTile("defaultLayer", new Tile(TileType.Ice), x, y);
-                            TileObjectManager.I.RegisterObject(new Player(map, x, y));                           
+                            TileObjectManager.I.RegisterObject(new Player(map, x, y));
                             break;
 
                         case ROCK:
                             map.SetTile("defaultLayer", new Tile(TileType.Ice), x, y);
                             TileObjectManager.I.RegisterObject(new Rock(map, x, y));
-                            break;
-
-                        case COLUMN:
-                            map.SetTile("defaultLayer", new Tile(TileType.Ice), x, y);
-                            TileObjectManager.I.RegisterObject(new Column(map, x, y));                         
                             break;
 
                         default:

@@ -18,19 +18,6 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             {
                 _tileObjects[i].Update(gameTime);
             }
-
-            for (int i = 0; i < _tileObjects.Count; i++)
-            {
-                // Check all objects against each other for collisions
-                for (int j = 0; j < _tileObjects.Count; j++)
-                {
-                    if (_tileObjects[i] != _tileObjects[j] && _tileObjects[i].Collide(_tileObjects[j]))
-                    {
-                        _tileObjects[i].ResolveCollison(_tileObjects[j]);
-                        _tileObjects[j].ResolveCollison(_tileObjects[i]);
-                    }
-                }
-            }
         }
 
 

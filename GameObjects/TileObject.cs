@@ -49,14 +49,14 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public TileObject(Tilemap tilemap, int xIndex, int yIndex)
         {
-            Index = new Point(xIndex, yIndex);
             _tilemap = tilemap;
+            Index = new Point(xIndex, yIndex);
             Position = _tilemap.IndexToWorldPos(Index.X, Index.Y);
 
             // TODO: Work out why you cant add flag without resetting tile
             Tile tile = _tilemap.GetTile(Index, "defaultLayer");
             tile.AddFlag(TileFlags.Occupied);
-            _tilemap.SetTile("defaultLayer", tile ,xIndex,yIndex);
+            _tilemap.SetTile("defaultLayer", tile, xIndex, yIndex);
         }
 
         public virtual void LoadContent()
@@ -82,21 +82,6 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
 
 
-        #region Collision
-
-        public bool Collide(TileObject obj)
-        {
-            return Collision.I.RectVsRect(Bounds, obj.Bounds);
-        }
-
-
-        public abstract void ResolveCollison(TileObject obj);
-
-        #endregion Collision
-
-
-
-
 
         #region Draw
 
@@ -106,6 +91,8 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         }
 
         #endregion Draw
+
+
 
 
 

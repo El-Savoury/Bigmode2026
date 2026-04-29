@@ -6,6 +6,7 @@ using MonogameLibrary.Assets;
 using MonogameLibrary.Graphics;
 using MonogameLibrary.Utilities;
 using System;
+using System.Reflection.Metadata;
 
 namespace Bigmode_Game_Jam_2026
 {
@@ -42,6 +43,11 @@ namespace Bigmode_Game_Jam_2026
             TextureAtlas tilesetAtlas = TextureAtlas.FromGrid("tileset", tilesetTexture, 64, 64);
             tilesetAtlas.AddRegion("tileset", 0, 0, tilesetTexture.Width, tilesetTexture.Height);
             AssetManager.I.AddTextureAtlas("tileset", tilesetAtlas);
+
+            // Cursor texture atlas
+            Texture2D cursorTexture = Content.Load<Texture2D>("cursor");
+            TextureAtlas cursorAtlas = TextureAtlas.FromGrid("cursorAtlas", cursorTexture, 80, 80);
+            AssetManager.I.AddTextureAtlas("cursorAtlas", cursorAtlas);
 
             ScreenManager.LoadAllScreens(Graphics, Content);
             ScreenManager.ActivateScreen(ScreenType.Gameplay);
