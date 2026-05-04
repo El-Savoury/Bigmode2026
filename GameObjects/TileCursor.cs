@@ -106,14 +106,15 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         {
             TileObject obj = TileObjectManager.I.GetObject(index);
 
-            if (obj is Player) { return; }
+            if (obj is Player || obj == null) { return; }
 
             _heldObject = obj;
 
             // Destroy this object on current tile
             TileObjectManager.I.DestroyObject(_heldObject);
 
-            _animatedSprite.SetAnimation("cursorAnimClosed");
+            _animatedSprite.AnimationController.Stop();
+            _animatedSprite.SetCurrentFrame(1);
         }
 
 
@@ -132,7 +133,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             TileObjectManager.I.RegisterObject(_heldObject);
             _heldObject = null;
 
-            _animatedSprite.SetAnimation("cursorAnim");
+            _animatedSprite.AnimationController.Play(0);
         }
 
 

@@ -10,7 +10,7 @@ namespace Bigmode_Game_Jam_2026.Tiles
     {
         #region rConstants
 
-        const string EMPTY = "0";
+        const string EMPTY = "-";
         const string ICE = "1";
         const string DOWN = "2";
         const string LEFT = "4";

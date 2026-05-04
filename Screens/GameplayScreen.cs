@@ -32,7 +32,8 @@ namespace Bigmode_Game_Jam_2026
 
         #region Constants
 
-        const int MAP_SIZE = 10;
+        const int MAP_WIDTH = 10;
+        const int MAP_HEIGHT = 10;
         const int TILE_WIDTH = 64;
         const int TILE_HEIGHT = 64;
 
@@ -89,12 +90,12 @@ namespace Bigmode_Game_Jam_2026
             TextureRegion tileTextures = AssetManager.I.GetTextureAtlas("tileset").GetRegion("tileset");
             Tileset tileset = new Tileset("tileset", tileTextures, TILE_WIDTH, TILE_HEIGHT);
 
-            Vector2 mapPos = new Vector2(GetScreenSize().Center.X - (TILE_WIDTH * MAP_SIZE / 2), GetScreenSize().Center.Y - (TILE_HEIGHT * MAP_SIZE / 2));
+            Vector2 mapPos = new Vector2(GetScreenSize().Center.X - (TILE_WIDTH * MAP_WIDTH / 2), GetScreenSize().Center.Y - (TILE_HEIGHT * MAP_HEIGHT / 2));
 
             TilemapLoader _mapLoader = new TilemapLoader();
 
             string lvlFilePath = "level" + levelNumber;
-            _tilemap = _mapLoader.Load(mapPos, tileset, TILE_WIDTH, TILE_HEIGHT, 10, 10, lvlFilePath);
+            _tilemap = _mapLoader.Load(mapPos, tileset, TILE_WIDTH, TILE_HEIGHT, MAP_HEIGHT, MAP_WIDTH, lvlFilePath);
         }
 
         #endregion Init
@@ -148,7 +149,10 @@ namespace Bigmode_Game_Jam_2026
                     }
                 }
             }
-
+            else
+            {
+                TileObjectManager.I.Update(gameTime);
+            }
 
             if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.E))
             {
@@ -161,7 +165,7 @@ namespace Bigmode_Game_Jam_2026
                 ToggleGameState();
             }
 
-            TileObjectManager.I.Update(gameTime);
+
         }
 
         #endregion Update
