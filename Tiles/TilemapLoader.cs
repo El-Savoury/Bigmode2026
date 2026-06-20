@@ -33,12 +33,14 @@ namespace Bigmode_Game_Jam_2026.Tiles
         {
             Tilemap map = new Tilemap(tileset, pos, tileWidth, tileHeight, rows, cols);
 
-            map.AddLayer("defaultLayer");
-            map.AddTileType(TileType.Empty, 0, TileCollision.None);
-            map.AddTileType(TileType.Ice, 1, TileCollision.Passable);
-            map.AddTileType(TileType.Wall, 3, TileCollision.Solid);
-            map.AddTileType(TileType.Arrow, 4, TileCollision.Passable);
-            map.AddTileType(TileType.Win, 10, TileCollision.Passable);
+            Tileset = new Tileset()
+
+            //map.AddLayer("defaultLayer");
+            //map.AddTileType(TileType.Empty, 0, TileCollision.None);
+            //map.AddTileType(TileType.Ice, 1, TileCollision.Passable);
+            //map.AddTileType(TileType.Wall, 3, TileCollision.Solid);
+            //map.AddTileType(TileType.Arrow, 4, TileCollision.Passable);
+            //map.AddTileType(TileType.Win, 10, TileCollision.Passable);
 
             string[,] tileData = GetTileData(filePath);
 

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonogameLibrary.Tilemaps;
+using MonogameLibrary.Tilemaps.TilemapObjects;
 using MonogameLibrary.Utilities;
 
 namespace Bigmode_Game_Jam_2026.GameObjects
@@ -14,7 +15,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
     }
 
 
-    public abstract class MovingTileObject : TileObject
+    public abstract class MovingTileObject : TilemapObject
     {
         #region Constants
 
@@ -69,33 +70,33 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             if (canMove)
             {
                 _moveTimer.Start();
-                Index = GetNextIndex(Direction);
+                MapIndex = GetNextIndex(Direction);
             }
 
             if (_moveTimer.ElapsedTime > MOVE_COOLDOWN_TIME)
             {
-                GetDirection(Index);
+                GetDirection(MapIndex);
                 Point nextIndex = GetNextIndex(Direction);
 
-                TileInfo nextTile = _tilemap.GetTileInfo(nextIndex, "defaultLayer");
+                TileTemplate nextTile = _tilemap.GetTileInfo(nextIndex, "defaultLayer");
 
                 if (nextTile.IsSolid || _tilemap.GetTile(nextIndex, "defaultLayer").HasFlag(TileFlags.Occupied))
                 {
                     ReverseDirection();
-                    Index = GetNextIndex(Direction);
+                    MapIndex = GetNextIndex(Direction);
                 }
                 else
                 {
-                    Index = nextIndex;
+                    MapIndex = nextIndex;
 
-                    // Set the tile we moved to as occupied
-                    _tilemap.GetTile(Index, "defaultLayer").AddFlag(TileFlags.Occupied);
+                    // TODO: Set the tile we moved to as occupied
+                    //_tilemap.GetTile(Index, "defaultLayer").AddFlag(TileFlags.Occupied);
                 }
 
                 _moveTimer.Reset();
             }
 
-            Position = _tilemap.IndexToWorldPos(Index.X, Index.Y);
+            Position = _tilemap.IndexToWorldPos(MapIndex.X, MapIndex.Y);
 
             _previousState = _currentState;
         }
@@ -112,23 +113,23 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public Point GetNextIndex(Point direction)
         {
-            return new Point(Index.X + direction.X, Index.Y + direction.Y);
+            return new Point(MapIndex.X + direction.X, MapIndex.Y + direction.Y);
         }
 
 
         protected void GetDirection(Point index)
         {
-            Tile currentTile = _tilemap.GetTile(Index.X, Index.Y, "defaultLayer");
+            Tile currentTile = _tilemap.GetTile(MapIndex.X, MapIndex.Y, "defaultLayer");
 
             switch (currentTile.TileType)
             {
                 case TileType.Arrow:
-                    Direction = CardinalDirExtension.ConvertToPoint(currentTile.Rotation);
+                    Direction = CardinalDirExtension.ToPoint(currentTile.Rotation);
 
                     // TODO: Change the way rotation is incremented on tiles
                     // so they dont have to be reinstantiated each time
                     currentTile.Rotation++;
-                    _tilemap.SetTile("defaultLayer", currentTile, Index.X, Index.Y);
+                    _tilemap.SetTile("defaultLayer", currentTile, MapIndex.X, MapIndex.Y);
                     break;
 
                 case TileType.Empty:

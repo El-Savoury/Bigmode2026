@@ -5,12 +5,13 @@ using Microsoft.Xna.Framework.Graphics;
 using MonogameLibrary.Assets;
 using MonogameLibrary.Graphics;
 using MonogameLibrary.Tilemaps;
+using MonogameLibrary.Tilemaps.TilemapObjects;
 using MonogameLibrary.Utilities;
 using System;
 
 namespace Bigmode_Game_Jam_2026.GameObjects
 {
-    public class TileCursor : TileObject
+    public class TileCursor : TilemapObject
     {
         #region Constants
 
@@ -24,9 +25,9 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         #region Properties
 
-        private TileObject _heldObject;
+        private TilemapObject _currentObject;
         private AnimatedSprite _animatedSprite;
-        public bool IsHoldingObject => _heldObject != null;
+        public bool IsHoldingObject => _currentObject != null;
 
         #endregion Properties
 
@@ -65,13 +66,13 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public void Update(GameTime gameTime, Point currentIndex)
         {
-            Index = currentIndex;
+            MapIndex = currentIndex;
             Position = _tilemap.IndexToWorldPos(currentIndex.X, currentIndex.Y);
 
             // Update currently held object
-            if (_heldObject != null)
+            if (_currentObject != null)
             {
-                UpdateCurrentObject(Index);
+                UpdateCurrentObject(MapIndex);
             }
 
             _animatedSprite.Update(gameTime);
@@ -87,7 +88,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (_heldObject != null) { _heldObject.Draw(spriteBatch); }
+            if (_currentObject != null) { _currentObject.Draw(spriteBatch); }
 
             Vector2 drawPos = new Vector2(Position.X - POS_OFFSET, Position.Y - POS_OFFSET);
             _animatedSprite.Draw(spriteBatch, drawPos);
@@ -102,16 +103,25 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         #region Util
 
-        public void PickUpObject(Point index)
+        public void PickUpObject(Point index, string layer)
         {
-            TileObject obj = TileObjectManager.I.GetObject(index);
+            _currentObject = _tilemap.GetObject(index, layer);
+            _tilemap.GetLayer(layer).RemoveObject(_currentObject);
 
-            if (obj is Player || obj == null) { return; }
+            //TileObject obj = TileObjectManager.I.GetObject(index);
 
-            _heldObject = obj;
+            //if (obj is Player || obj == null) { return; }
 
-            // Destroy this object on current tile
-            TileObjectManager.I.DestroyObject(_heldObject);
+            //_currentObject = obj;
+
+            //// Destroy this object on current tile
+            //TileObjectManager.I.DestroyObject(_currentObject);
+
+            //// Make tile not occupied
+            //// TODO: Work out why we need to set a new tile
+            //Tile tile = _tilemap.GetTile(index, "defaultLayer");
+            //tile.RemoveFlag(TileFlags.Occupied);
+            //_tilemap.SetTile("defaultLayer", tile, index.X, index.Y);
 
             _animatedSprite.AnimationController.Stop();
             _animatedSprite.SetCurrentFrame(1);
@@ -121,17 +131,21 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         public void DropObject(Point index)
         {
             // Check if placement tile is a valid placement
-            bool tileOccupied = TileObjectManager.I.GetObject(index) != null;
-            ushort tileType = _tilemap.GetTileType(index.X, index.Y, "defaultLayer");
+            bool tileOccupied = _tilemap.GetLayer("objectLayer").GetObject(index) != null;
+            ushort tileID = _tilemap.GetTile(index, "defaultLayer").TilesetID;
 
-            if (tileOccupied || tileType == TileType.Empty)
+            if (tileOccupied || _tilemap.GetTileInfo() == TileType.Empty)
             {
                 return;
             }
 
             UpdateCurrentObject(index);
-            TileObjectManager.I.RegisterObject(_heldObject);
-            _heldObject = null;
+            TileObjectManager.I.RegisterObject(_currentObject);
+            _currentObject = null;
+
+            Tile tile = _tilemap.GetTile(index, "defaultLayer");
+            tile.AddFlag(TileFlags.Occupied);
+            _tilemap.SetTile("defaultLayer", tile, index.X, index.Y);
 
             _animatedSprite.AnimationController.Play(0);
         }
@@ -139,8 +153,8 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         private void UpdateCurrentObject(Point index)
         {
-            _heldObject.Position = _tilemap.IndexToWorldPos(index.X, index.Y);
-            _heldObject.Index = index;
+            _currentObject.Position = _tilemap.IndexToWorldPos(index.X, index.Y);
+            _currentObject.MapIndex = index;
         }
 
         #endregion Util

@@ -9,6 +9,7 @@ using MonogameLibrary.Entities;
 using MonogameLibrary.Graphics;
 using MonogameLibrary.Input;
 using MonogameLibrary.Tilemaps;
+using MonogameLibrary.Tilemaps.TilemapObjects;
 using MonogameLibrary.Utilities;
 using System;
 using System.Reflection;
@@ -46,7 +47,7 @@ namespace Bigmode_Game_Jam_2026
         #region Members
 
         private Tilemap _tilemap;
-        private TileObject _currentObject;
+        private TilemapObject _currentObject;
         private Point _currentIndex = new Point(1, 1);
         private Point _previousIndex;
         private GameState _currentGameState = GameState.Play;
@@ -140,7 +141,7 @@ namespace Bigmode_Game_Jam_2026
                 {
                     if (!_tileCursor.IsHoldingObject)
                     {
-                        _tileCursor.PickUpObject(_currentIndex);
+                        _tileCursor.PickUpObject(_currentIndex, "objectLayer");
                         _previousIndex = _currentIndex;
                     }
                     else
@@ -151,7 +152,7 @@ namespace Bigmode_Game_Jam_2026
             }
             else
             {
-                TileObjectManager.I.Update(gameTime);
+                _tilemap.Update(gameTime);
             }
 
             if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.E))
@@ -234,8 +235,8 @@ namespace Bigmode_Game_Jam_2026
             }
 
             // Clamp index to bounds of tilemap
-            index.X = Math.Clamp(index.X, 1, _tilemap.Width - 2);
-            index.Y = Math.Clamp(index.Y, 1, _tilemap.Height - 2);
+            index.X = Math.Clamp(index.X, 1, _tilemap.Columns - 2);
+            index.Y = Math.Clamp(index.Y, 1, _tilemap.Rows - 2);
 
             return index;
         }
