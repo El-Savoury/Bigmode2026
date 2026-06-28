@@ -3,11 +3,44 @@
   "WorkspaceRootPath": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{423A1827-348E-5A4B-8754-EB1A30396626}|..\\MonogameLibrary\\MonogameLibrary.csproj|c:\\users\\ross_\\documents\\programming\\monogamelibrary\\tilemaps\\tileset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{479BA34B-0612-4662-8730-58C8BF50D97D}|Bigmode Game Jam 2026.csproj|c:\\users\\ross_\\documents\\programming\\bigmode game jam 2026\\content\\filesxml\\tilesetdefinition.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{479BA34B-0612-4662-8730-58C8BF50D97D}|Bigmode Game Jam 2026.csproj|solutionrelative:content\\filesxml\\tilesetdefinition.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{479BA34B-0612-4662-8730-58C8BF50D97D}|Bigmode Game Jam 2026.csproj|c:\\users\\ross_\\documents\\programming\\bigmode game jam 2026\\screens\\gameplayscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{479BA34B-0612-4662-8730-58C8BF50D97D}|Bigmode Game Jam 2026.csproj|solutionrelative:screens\\gameplayscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{423A1827-348E-5A4B-8754-EB1A30396626}|..\\MonogameLibrary\\MonogameLibrary.csproj|c:\\users\\ross_\\documents\\programming\\monogamelibrary\\tilemaps\\tilemap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{479BA34B-0612-4662-8730-58C8BF50D97D}|Bigmode Game Jam 2026.csproj|c:\\users\\ross_\\documents\\programming\\bigmode game jam 2026\\content\\filesxml\\level1.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{479BA34B-0612-4662-8730-58C8BF50D97D}|Bigmode Game Jam 2026.csproj|solutionrelative:content\\filesxml\\level1.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{423A1827-348E-5A4B-8754-EB1A30396626}|..\\MonogameLibrary\\MonogameLibrary.csproj|c:\\users\\ross_\\documents\\programming\\monogamelibrary\\tilemaps\\tilemaplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{479BA34B-0612-4662-8730-58C8BF50D97D}|Bigmode Game Jam 2026.csproj|c:\\users\\ross_\\documents\\programming\\bigmode game jam 2026\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{479BA34B-0612-4662-8730-58C8BF50D97D}|Bigmode Game Jam 2026.csproj|solutionrelative:main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{479BA34B-0612-4662-8730-58C8BF50D97D}|Bigmode Game Jam 2026.csproj|c:\\users\\ross_\\documents\\programming\\bigmode game jam 2026\\gameobjects\\rock.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{479BA34B-0612-4662-8730-58C8BF50D97D}|Bigmode Game Jam 2026.csproj|solutionrelative:gameobjects\\rock.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{479BA34B-0612-4662-8730-58C8BF50D97D}|Bigmode Game Jam 2026.csproj|c:\\users\\ross_\\documents\\programming\\bigmode game jam 2026\\gameobjects\\movingtileobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{479BA34B-0612-4662-8730-58C8BF50D97D}|Bigmode Game Jam 2026.csproj|solutionrelative:gameobjects\\movingtileobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{479BA34B-0612-4662-8730-58C8BF50D97D}|Bigmode Game Jam 2026.csproj|c:\\users\\ross_\\documents\\programming\\bigmode game jam 2026\\gameobjects\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{479BA34B-0612-4662-8730-58C8BF50D97D}|Bigmode Game Jam 2026.csproj|solutionrelative:gameobjects\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{423A1827-348E-5A4B-8754-EB1A30396626}|..\\MonogameLibrary\\MonogameLibrary.csproj|c:\\users\\ross_\\documents\\programming\\monogamelibrary\\tilemaps\\tile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -17,36 +50,153 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "level1.xml",
-              "DocumentMoniker": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\Content\\FilesXML\\level1.xml",
-              "RelativeDocumentMoniker": "Content\\FilesXML\\level1.xml",
-              "ToolTip": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\Content\\FilesXML\\level1.xml",
-              "RelativeToolTip": "Content\\FilesXML\\level1.xml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
-              "WhenOpened": "2026-06-28T12:00:23.586Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "tilesetDefinition.xml",
+              "DocumentMoniker": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\Content\\FilesXML\\tilesetDefinition.xml",
+              "RelativeDocumentMoniker": "Content\\FilesXML\\tilesetDefinition.xml",
+              "ToolTip": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\Content\\FilesXML\\tilesetDefinition.xml",
+              "RelativeToolTip": "Content\\FilesXML\\tilesetDefinition.xml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2026-06-28T23:31:03.35Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "level1.xml",
+              "DocumentMoniker": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\Content\\FilesXML\\level1.xml",
+              "RelativeDocumentMoniker": "Content\\FilesXML\\level1.xml",
+              "ToolTip": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\Content\\FilesXML\\level1.xml",
+              "RelativeToolTip": "Content\\FilesXML\\level1.xml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2026-06-28T23:10:08.116Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Tileset.cs",
+              "DocumentMoniker": "C:\\Users\\ross_\\Documents\\Programming\\MonogameLibrary\\Tilemaps\\Tileset.cs",
+              "RelativeDocumentMoniker": "..\\MonogameLibrary\\Tilemaps\\Tileset.cs",
+              "ToolTip": "C:\\Users\\ross_\\Documents\\Programming\\MonogameLibrary\\Tilemaps\\Tileset.cs",
+              "RelativeToolTip": "..\\MonogameLibrary\\Tilemaps\\Tileset.cs",
+              "ViewState": "AgIAAHcAAAAAAAAAAADgv4gAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-28T22:45:43.588Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Main.cs",
+              "DocumentMoniker": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\Main.cs",
+              "RelativeDocumentMoniker": "Main.cs",
+              "ToolTip": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\Main.cs",
+              "RelativeToolTip": "Main.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAYwC4AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-28T22:43:59.594Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Rock.cs",
+              "DocumentMoniker": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\GameObjects\\Rock.cs",
+              "RelativeDocumentMoniker": "GameObjects\\Rock.cs",
+              "ToolTip": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\GameObjects\\Rock.cs",
+              "RelativeToolTip": "GameObjects\\Rock.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-28T21:18:12.583Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Tile.cs",
+              "DocumentMoniker": "C:\\Users\\ross_\\Documents\\Programming\\MonogameLibrary\\Tilemaps\\Tile.cs",
+              "RelativeDocumentMoniker": "..\\MonogameLibrary\\Tilemaps\\Tile.cs",
+              "ToolTip": "C:\\Users\\ross_\\Documents\\Programming\\MonogameLibrary\\Tilemaps\\Tile.cs",
+              "RelativeToolTip": "..\\MonogameLibrary\\Tilemaps\\Tile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-28T19:00:04.809Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MovingTileObject.cs",
+              "DocumentMoniker": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\GameObjects\\MovingTileObject.cs",
+              "RelativeDocumentMoniker": "GameObjects\\MovingTileObject.cs",
+              "ToolTip": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\GameObjects\\MovingTileObject.cs",
+              "RelativeToolTip": "GameObjects\\MovingTileObject.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAQwDcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-28T18:39:54.602Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Player.cs",
+              "DocumentMoniker": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\GameObjects\\Player.cs",
+              "RelativeDocumentMoniker": "GameObjects\\Player.cs",
+              "ToolTip": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\GameObjects\\Player.cs",
+              "RelativeToolTip": "GameObjects\\Player.cs",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAkwCQAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-28T18:39:40.716Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GameplayScreen.cs",
+              "DocumentMoniker": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\Screens\\GameplayScreen.cs",
+              "RelativeDocumentMoniker": "Screens\\GameplayScreen.cs",
+              "ToolTip": "C:\\Users\\ross_\\Documents\\Programming\\Bigmode Game Jam 2026\\Screens\\GameplayScreen.cs",
+              "RelativeToolTip": "Screens\\GameplayScreen.cs",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAYwFoAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-28T18:28:00.811Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Tilemap.cs",
               "DocumentMoniker": "C:\\Users\\ross_\\Documents\\Programming\\MonogameLibrary\\Tilemaps\\Tilemap.cs",
               "RelativeDocumentMoniker": "..\\MonogameLibrary\\Tilemaps\\Tilemap.cs",
               "ToolTip": "C:\\Users\\ross_\\Documents\\Programming\\MonogameLibrary\\Tilemaps\\Tilemap.cs",
               "RelativeToolTip": "..\\MonogameLibrary\\Tilemaps\\Tilemap.cs",
-              "ViewState": "AgIAAFUAAAAAAAAAAAAgwGAAAABIAAAAAAAAAA==",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAEwGIAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-06T19:54:51.208Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TilemapLayer.cs",
+              "DocumentMoniker": "C:\\Users\\ross_\\Documents\\Programming\\MonogameLibrary\\Tilemaps\\TilemapLayer.cs",
+              "RelativeDocumentMoniker": "..\\MonogameLibrary\\Tilemaps\\TilemapLayer.cs",
+              "ToolTip": "C:\\Users\\ross_\\Documents\\Programming\\MonogameLibrary\\Tilemaps\\TilemapLayer.cs",
+              "RelativeToolTip": "..\\MonogameLibrary\\Tilemaps\\TilemapLayer.cs",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAiwIQAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-28T23:13:25.507Z",
               "EditorCaption": ""
             }
           ]

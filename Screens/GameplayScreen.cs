@@ -5,16 +5,12 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonogameLibrary.Assets;
-using MonogameLibrary.Entities;
 using MonogameLibrary.Graphics;
 using MonogameLibrary.Input;
 using MonogameLibrary.Tilemaps;
 using MonogameLibrary.Tilemaps.TilemapObjects;
-using MonogameLibrary.Utilities;
 using System;
-using System.Reflection;
-using System.Reflection.Metadata;
-using System.Runtime.CompilerServices;
+
 
 namespace Bigmode_Game_Jam_2026
 {
@@ -33,10 +29,10 @@ namespace Bigmode_Game_Jam_2026
 
         #region Constants
 
-        const int MAP_WIDTH = 10;
-        const int MAP_HEIGHT = 10;
-        const int TILE_WIDTH = 64;
-        const int TILE_HEIGHT = 64;
+        private const int MapWidth = 10;
+        private const int MapHeight = 10;
+        private const int TileWidth = 64;
+        private const int TileHeight = 64;
 
         #endregion Constants
 
@@ -80,23 +76,31 @@ namespace Bigmode_Game_Jam_2026
         /// </summary>
         public override void LoadContent(ContentManager content)
         {
-            LoadMap(_levelNum);
+            LoadMap();
 
             _tileCursor = new TileCursor(_tilemap, _currentIndex.X, _currentIndex.Y);
         }
 
 
-        private void LoadMap(int levelNumber)
+        private void LoadMap()
         {
-            TextureRegion tileTextures = AssetManager.I.GetTextureAtlas("tileset").GetRegion("tileset");
-            Tileset tileset = new Tileset("tileset", tileTextures, TILE_WIDTH, TILE_HEIGHT);
+            Tileset tileset = Tileset.FromFile(Main.Content, "FilesXML/tilesetDefinition.xml");
+            _tilemap = new Tilemap(tileset, Vector2.Zero, TileWidth, TileHeight, MapWidth, MapHeight);
+            _tilemap.AddLayer("defaultLayer");
 
-            Vector2 mapPos = new Vector2(GetScreenSize().Center.X - (TILE_WIDTH * MAP_WIDTH / 2), GetScreenSize().Center.Y - (TILE_HEIGHT * MAP_HEIGHT / 2));
+            _tilemap.LoadLevelFromFile(Main.Content, "FilesXML/level1.xml");
 
-            TilemapLoader _mapLoader = new TilemapLoader();
 
-            string lvlFilePath = "level" + levelNumber;
-            _tilemap = _mapLoader.Load(mapPos, tileset, TILE_WIDTH, TILE_HEIGHT, MAP_HEIGHT, MAP_WIDTH, lvlFilePath);
+
+            //TextureRegion tileTextures = AssetManager.I.GetTextureAtlas("tileset").GetRegion("tileset");
+            //Tileset tileset = new Tileset("tileset", tileTextures, TILE_WIDTH, TILE_HEIGHT);
+
+            //Vector2 mapPos = new Vector2(GetScreenSize().Center.X - (TILE_WIDTH * MAP_WIDTH / 2), GetScreenSize().Center.Y - (TILE_HEIGHT * MAP_HEIGHT / 2));
+
+            //TilemapLoader _mapLoader = new TilemapLoader();
+
+            //string lvlFilePath = "level" + levelNumber;
+            //_tilemap = _mapLoader.Load(mapPos, tileset, TILE_WIDTH, TILE_HEIGHT, MAP_HEIGHT, MAP_WIDTH, lvlFilePath);
         }
 
         #endregion Init
@@ -191,7 +195,7 @@ namespace Bigmode_Game_Jam_2026
             spriteBatch.Begin();
 
             _tilemap.Draw(spriteBatch);
-            TileObjectManager.I.Draw(spriteBatch);
+            // TileObjectManager.I.Draw(spriteBatch);
 
             if (_currentGameState == GameState.Edit)
             {
@@ -245,8 +249,8 @@ namespace Bigmode_Game_Jam_2026
         private void Reset()
         {
             _currentObject = null;
-            TileObjectManager.I.Clear();
-            LoadMap(_levelNum);
+            //TileObjectManager.I.Clear();
+            LoadMap();
         }
 
 

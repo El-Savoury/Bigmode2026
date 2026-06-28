@@ -1,6 +1,5 @@
 ﻿using Bigmode_Game_Jam_2026.Tiles;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using MonogameLibrary.Tilemaps;
 using MonogameLibrary.Tilemaps.TilemapObjects;
 using MonogameLibrary.Utilities;
@@ -78,9 +77,10 @@ namespace Bigmode_Game_Jam_2026.GameObjects
                 GetDirection(MapIndex);
                 Point nextIndex = GetNextIndex(Direction);
 
-                TileTemplate nextTile = _tilemap.GetTileInfo(nextIndex, "defaultLayer");
+                Tile nextTile = _tilemap.GetTile(nextIndex, "defaultLayer");
+                TileTemplate tileInfo = _tilemap.GetTileTemplate(nextTile.TilesetID);
 
-                if (nextTile.IsSolid || _tilemap.GetTile(nextIndex, "defaultLayer").HasFlag(TileFlags.Occupied))
+                if (tileInfo.Collision == TileCollision.Solid)
                 {
                     ReverseDirection();
                     MapIndex = GetNextIndex(Direction);
@@ -101,8 +101,6 @@ namespace Bigmode_Game_Jam_2026.GameObjects
             _previousState = _currentState;
         }
 
-
-
         #endregion Update
 
 
@@ -121,7 +119,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         {
             Tile currentTile = _tilemap.GetTile(MapIndex.X, MapIndex.Y, "defaultLayer");
 
-            switch (currentTile.TileType)
+            switch (currentTile.TilesetID)
             {
                 case TileType.Arrow:
                     Direction = CardinalDirExtension.ToPoint(currentTile.Rotation);
@@ -129,7 +127,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
                     // TODO: Change the way rotation is incremented on tiles
                     // so they dont have to be reinstantiated each time
                     currentTile.Rotation++;
-                    _tilemap.SetTile("defaultLayer", currentTile, MapIndex.X, MapIndex.Y);
+                    _tilemap.SetTile("defaultLayer", currentTile.TilesetID, MapIndex.X, MapIndex.Y);
                     break;
 
                 case TileType.Empty:

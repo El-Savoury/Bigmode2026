@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Tileset>
 	<Atlas>tilesetAtlas</Atlas>
-	<Region name="" x="" y="" width="" height="" />
+	<Region name="tileRegion" x="0" y="0" width="256" height="320" />
 	<Templates>
-		<Template tilesetID="1" collision="0" rotation=""/>
-		<Template tilesetID="2" collision="1" rotation=""/>
-		<Template tilesetID="3" collision="0"/>
+		<Template tilesetID="0" collision="0" />
+		<Template tilesetID="1" collision="0" />
+		<Template tilesetID="2" collision="1" />
+		<Template tilesetID="3" collision="0" />
 	</Templates>
 </Tileset>

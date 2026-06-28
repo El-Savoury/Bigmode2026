@@ -105,8 +105,8 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public void PickUpObject(Point index, string layer)
         {
-            _currentObject = _tilemap.GetObject(index, layer);
-            _tilemap.GetLayer(layer).RemoveObject(_currentObject);
+        //    _currentObject = _tilemap.GetObject(index, layer);
+        //    _tilemap.GetLayer(layer).RemoveObject(_currentObject);
 
             //TileObject obj = TileObjectManager.I.GetObject(index);
 
@@ -131,23 +131,23 @@ namespace Bigmode_Game_Jam_2026.GameObjects
         public void DropObject(Point index)
         {
             // Check if placement tile is a valid placement
-            bool tileOccupied = _tilemap.GetLayer("objectLayer").GetObject(index) != null;
-            ushort tileID = _tilemap.GetTile(index, "defaultLayer").TilesetID;
+            // bool tileOccupied = _tilemap.GetLayer("objectLayer").GetObject(index) != null;
+            //int tileID = _tilemap.GetTile(index, "defaultLayer").TilesetID;
 
-            if (tileOccupied || _tilemap.GetTileInfo() == TileType.Empty)
-            {
-                return;
-            }
+            //if (tileOccupied || _tilemap.GetTileInfo() == TileType.Empty)
+            //{
+            //    return;
+            //}
 
-            UpdateCurrentObject(index);
-            TileObjectManager.I.RegisterObject(_currentObject);
-            _currentObject = null;
+            //UpdateCurrentObject(index);
+            //TileObjectManager.I.RegisterObject(_currentObject);
+            //_currentObject = null;
 
-            Tile tile = _tilemap.GetTile(index, "defaultLayer");
-            tile.AddFlag(TileFlags.Occupied);
-            _tilemap.SetTile("defaultLayer", tile, index.X, index.Y);
+            //Tile tile = _tilemap.GetTile(index, "defaultLayer");
+            
+            //_tilemap.SetTile("defaultLayer", tile.TilesetID, index.X, index.Y);
 
-            _animatedSprite.AnimationController.Play(0);
+            //_animatedSprite.AnimationController.Play(0);
         }
 
 
