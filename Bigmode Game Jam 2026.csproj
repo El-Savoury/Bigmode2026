@@ -31,6 +31,7 @@
     <None Remove="Content\obj\DesktopGL\net8.0\Content\Sprites\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Content\FilesXML\tilemapDefinition.xml" />
     <None Remove="Content\Level1.txt" />
     <None Remove="Content\player.png" />
     <None Remove="Icon.ico" />
