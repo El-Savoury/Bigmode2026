@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Bigmode_Game_Jam_2026.Tiles
+﻿namespace Bigmode_Game_Jam_2026.Tiles
 {
     public static class TileType
     {

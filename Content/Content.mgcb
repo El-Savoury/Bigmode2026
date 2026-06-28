@@ -34,6 +34,9 @@
 #begin Files/Level3.txt
 /copy:Files/Level3.txt
 
+#begin FilesXML/TilesetDefinition.xml
+/copy:FilesXML/TilesetDefinition.xml;FilesXML/tilesetDefinition.xml
+
 #begin tileset.png
 /importer:TextureImporter
 /processor:TextureProcessor

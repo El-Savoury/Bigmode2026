@@ -32,10 +32,8 @@ namespace Bigmode_Game_Jam_2026.Tiles
         public Tilemap Load(Vector2 pos, Tileset tileset, int tileWidth, int tileHeight, int rows, int cols, string filePath)
         {
             Tilemap map = new Tilemap(tileset, pos, tileWidth, tileHeight, rows, cols);
-
-            Tileset = new Tileset()
-
-            //map.AddLayer("defaultLayer");
+            
+            map.AddLayer("defaultLayer");
             //map.AddTileType(TileType.Empty, 0, TileCollision.None);
             //map.AddTileType(TileType.Ice, 1, TileCollision.Passable);
             //map.AddTileType(TileType.Wall, 3, TileCollision.Solid);

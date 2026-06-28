@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Tileset>
+	<Atlas>tilesetAtlas</Atlas>
+	<Region>tilesetRegion</Region>
+	<Templates>
+		<Template tilesetID="" collision=""/>
+		<Template tilesetID="" collision=""/>
+		<Template tilesetID="" collision=""/>
+	</Templates>
+</Tileset>
