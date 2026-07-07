@@ -14,11 +14,14 @@ namespace Bigmode_Game_Jam_2026.GameObjects
     }
 
 
-    public abstract class MovingTileObject : TilemapObject
+    /// <summary>
+    /// An entity that moves whilst remaining snapped to a tile grid
+    /// </summary>
+    public abstract class MovingTileEntity : TileEntity
     {
         #region Constants
 
-        protected int MOVE_COOLDOWN_TIME = 200;
+        protected const int MoveCooldownTime = 200;
 
         #endregion Constants
 
@@ -46,7 +49,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         #region Init
 
-        public MovingTileObject(Tilemap map, int xIndex, int yIndex) : base(map, xIndex, yIndex)
+        public MovingTileEntity(Tilemap map, int xIndex, int yIndex) : base(map, xIndex, yIndex)
         {
             Direction = Point.Zero;
         }
@@ -72,7 +75,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
                 MapIndex = GetNextIndex(Direction);
             }
 
-            if (_moveTimer.ElapsedTime > MOVE_COOLDOWN_TIME)
+            if (_moveTimer.ElapsedTime > MoveCooldownTime)
             {
                 GetDirection(MapIndex);
                 Point nextIndex = GetNextIndex(Direction);

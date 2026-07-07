@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonogameLibrary;
@@ -12,17 +13,21 @@ namespace Bigmode_Game_Jam_2026
 {
     public class Main : Core
     {
-        private const string TITLE = "Bigmode";
-        private const int SCREEN_WIDTH = 1280;
-        private const int SCREEN_HEIGHT = 720;
-        private const bool FULLSCREEN = false;
+        // Window 
+        private const string Title = "Bigmode";
+        private const int WindowWidth = 1280;
+        private const int WindowHeight = 720;
+        private const bool IsFullscreen = false;
 
+        // FPS
+        private const int FixedFPS = 60;
+        private const double FixedTimeStep = 1.0d / FixedFPS;
 
-        public Main() : base(TITLE, SCREEN_WIDTH, SCREEN_HEIGHT, FULLSCREEN)
+        public Main() : base(Title, WindowWidth, WindowHeight, IsFullscreen)
         {
-            // 60 FPS
+            // Target fixed frame rate
             IsFixedTimeStep = true;
-            TargetElapsedTime = TimeSpan.FromSeconds(1.0d / 60d);
+            TargetElapsedTime = TimeSpan.FromSeconds(FixedTimeStep);
 
             // Vsync
             Graphics.SynchronizeWithVerticalRetrace = true;
@@ -43,16 +48,14 @@ namespace Bigmode_Game_Jam_2026
             TextureAtlas atlas = new TextureAtlas(tilesetTexture);
             AssetManager.I.AddTextureAtlas("tilesetAtlas", atlas);
 
-            //TextureAtlas tilesetAtlas = TextureAtlas.FromGrid("tilesetAtlas", tilesetTexture, 64, 64);
-            //tilesetAtlas.AddRegion("tileset", 0, 0, tilesetTexture.Width, tilesetTexture.Height);
-            //AssetManager.I.AddTextureAtlas("tilesetAtlas", tilesetAtlas);
-
             // Cursor texture atlas
             Texture2D cursorTexture = Content.Load<Texture2D>("cursor");
             TextureAtlas cursorAtlas = TextureAtlas.FromGrid("cursorAtlas", cursorTexture, 80, 80);
             AssetManager.I.AddTextureAtlas("cursorAtlas", cursorAtlas);
 
             ScreenManager.LoadAllScreens(Graphics, Content);
+
+            // Load startup screen
             ScreenManager.ActivateScreen(ScreenType.Gameplay);
         }
 

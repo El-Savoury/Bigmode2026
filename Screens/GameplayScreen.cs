@@ -1,14 +1,11 @@
 ﻿using Bigmode_Game_Jam_2026.GameObjects;
-using Bigmode_Game_Jam_2026.Tiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonogameLibrary.Assets;
-using MonogameLibrary.Graphics;
+using MonogameLibrary.Screens;
 using MonogameLibrary.Input;
 using MonogameLibrary.Tilemaps;
-using MonogameLibrary.Tilemaps.TilemapObjects;
 using System;
 
 
@@ -34,6 +31,8 @@ namespace Bigmode_Game_Jam_2026
         private const int TileWidth = 64;
         private const int TileHeight = 64;
 
+        private const int TotalLevels = 3;
+
         #endregion Constants
 
 
@@ -43,15 +42,13 @@ namespace Bigmode_Game_Jam_2026
         #region Members
 
         private Tilemap _tilemap;
-        private TilemapObject _currentObject;
+        private TileCursor _tileCursor;
+        private TileEntity _currentObject;
         private Point _currentIndex = new Point(1, 1);
         private Point _previousIndex;
+
+        private int _currentLvlNum = 1;
         private GameState _currentGameState = GameState.Play;
-
-        int _levelNum = 1;
-        const int TOTAL_LEVELS = 3;
-
-        TileCursor _tileCursor;
 
         #endregion Members
 
@@ -76,31 +73,23 @@ namespace Bigmode_Game_Jam_2026
         /// </summary>
         public override void LoadContent(ContentManager content)
         {
-            LoadMap();
+            LoadTilemap(content);
 
             _tileCursor = new TileCursor(_tilemap, _currentIndex.X, _currentIndex.Y);
         }
 
 
-        private void LoadMap()
+        private void LoadTilemap(ContentManager content)
         {
-            Tileset tileset = Tileset.FromFile(Main.Content, "FilesXML/tilesetDefinition.xml");
-            _tilemap = new Tilemap(tileset, Vector2.Zero, TileWidth, TileHeight, MapWidth, MapHeight);
+            int mapX = Center.X - (TileWidth * MapWidth / 2);
+            int mapY = Center.Y - (TileHeight * MapHeight / 2);
+
+            Tileset tileset = Tileset.FromFile(content, "FilesXML/tilesetDefinition.xml");
+            _tilemap = new Tilemap(tileset, new Vector2(mapX, mapY), TileWidth, TileHeight, MapWidth, MapHeight);
             _tilemap.AddLayer("defaultLayer");
 
+            // TODO: Load correct level by using file name string + level number
             _tilemap.LoadLevelFromFile(Main.Content, "FilesXML/level1.xml");
-
-
-
-            //TextureRegion tileTextures = AssetManager.I.GetTextureAtlas("tileset").GetRegion("tileset");
-            //Tileset tileset = new Tileset("tileset", tileTextures, TILE_WIDTH, TILE_HEIGHT);
-
-            //Vector2 mapPos = new Vector2(GetScreenSize().Center.X - (TILE_WIDTH * MAP_WIDTH / 2), GetScreenSize().Center.Y - (TILE_HEIGHT * MAP_HEIGHT / 2));
-
-            //TilemapLoader _mapLoader = new TilemapLoader();
-
-            //string lvlFilePath = "level" + levelNumber;
-            //_tilemap = _mapLoader.Load(mapPos, tileset, TILE_WIDTH, TILE_HEIGHT, MAP_HEIGHT, MAP_WIDTH, lvlFilePath);
         }
 
         #endregion Init
@@ -125,12 +114,12 @@ namespace Bigmode_Game_Jam_2026
 
             if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.NumPad1))
             {
-                if (_levelNum > 1) { _levelNum--; }
+                if (_currentLvlNum > 1) { _currentLvlNum--; }
                 Reset();
             }
             if (InputManager.I.KeyboardInput.IsKeyPressed(Keys.NumPad3))
             {
-                if (_levelNum < TOTAL_LEVELS) { _levelNum++; }
+                if (_currentLvlNum < TotalLevels) { _currentLvlNum++; }
                 Reset();
             }
 
@@ -195,7 +184,7 @@ namespace Bigmode_Game_Jam_2026
             spriteBatch.Begin();
 
             _tilemap.Draw(spriteBatch);
-            // TileObjectManager.I.Draw(spriteBatch);
+            TileObjectManager.I.Draw(spriteBatch);
 
             if (_currentGameState == GameState.Edit)
             {
@@ -249,8 +238,7 @@ namespace Bigmode_Game_Jam_2026
         private void Reset()
         {
             _currentObject = null;
-            //TileObjectManager.I.Clear();
-            LoadMap();
+            LoadTilemap(Main.Content);
         }
 
 

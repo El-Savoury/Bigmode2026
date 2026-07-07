@@ -7,9 +7,9 @@ using System;
 
 namespace Bigmode_Game_Jam_2026.GameObjects
 {
-    public class Rock : MovingTileObject
+    public class Rock : MovingTileEntity
     {
-        Sprite _sprite;
+        private Sprite _sprite;
 
         public Rock(Tilemap map, int xIndex, int yIndex) : base(map, xIndex, yIndex)
         {
@@ -31,7 +31,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            throw new NotImplementedException();
+            _sprite.Draw(spriteBatch, Position);
         }
     }
 }

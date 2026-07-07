@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonogameLibrary.Assets;
@@ -10,9 +9,9 @@ using System;
 
 namespace Bigmode_Game_Jam_2026.GameObjects
 {
-    public class Player : MovingTileObject
+    public class Player : MovingTileEntity
     {
-        AnimatedSprite _animatedSprite;
+        private AnimatedSprite _animatedSprite;
 
         public Player(Tilemap map, int xIndex, int yIndex) : base(map, xIndex, yIndex)
         {

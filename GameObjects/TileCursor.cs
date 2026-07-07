@@ -5,13 +5,12 @@ using Microsoft.Xna.Framework.Graphics;
 using MonogameLibrary.Assets;
 using MonogameLibrary.Graphics;
 using MonogameLibrary.Tilemaps;
-using MonogameLibrary.Tilemaps.TilemapObjects;
 using MonogameLibrary.Utilities;
 using System;
 
 namespace Bigmode_Game_Jam_2026.GameObjects
 {
-    public class TileCursor : TilemapObject
+    public class TileCursor : MovingTileEntity
     {
         #region Constants
 
@@ -25,7 +24,7 @@ namespace Bigmode_Game_Jam_2026.GameObjects
 
         #region Properties
 
-        private TilemapObject _currentObject;
+        private TileEntity _currentObject;
         private AnimatedSprite _animatedSprite;
         public bool IsHoldingObject => _currentObject != null;
 
