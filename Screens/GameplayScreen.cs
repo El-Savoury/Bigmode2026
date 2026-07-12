@@ -14,7 +14,7 @@ namespace Bigmode_Game_Jam_2026
     /// <summary>
     /// Gameplay screen
     /// </summary>
-    internal class GameplayScreen : Screen
+    public class GameplayScreen : Screen
     {
         private enum GameState
         {
@@ -28,8 +28,6 @@ namespace Bigmode_Game_Jam_2026
 
         private const int MapWidth = 10;
         private const int MapHeight = 10;
-        private const int TileWidth = 64;
-        private const int TileHeight = 64;
 
         private const int TotalLevels = 3;
 
@@ -63,7 +61,7 @@ namespace Bigmode_Game_Jam_2026
         /// Game screen constructor
         /// </summary>
         /// <param name="graphics">Graphics device</param>
-        public GameplayScreen(GraphicsDeviceManager graphics) : base(graphics)
+        public GameplayScreen(GraphicsDeviceManager graphics, int width, int height) : base(graphics, width, height)
         {
         }
 
@@ -81,11 +79,12 @@ namespace Bigmode_Game_Jam_2026
 
         private void LoadTilemap(ContentManager content)
         {
-            int mapX = Center.X - (TileWidth * MapWidth / 2);
-            int mapY = Center.Y - (TileHeight * MapHeight / 2);
-
             Tileset tileset = Tileset.FromFile(content, "FilesXML/tilesetDefinition.xml");
-            _tilemap = new Tilemap(tileset, new Vector2(mapX, mapY), TileWidth, TileHeight, MapWidth, MapHeight);
+
+            int mapX = Bounds.Center.X - (tileset.TileWidth * MapWidth / 2);
+            int mapY = Bounds.Center.Y - (tileset.TileHeight * MapHeight / 2);
+
+            _tilemap = new Tilemap(tileset, new Vector2(mapX, mapY), MapWidth, MapHeight);
             _tilemap.AddLayer("defaultLayer");
 
             // TODO: Load correct level by using file name string + level number
@@ -158,8 +157,6 @@ namespace Bigmode_Game_Jam_2026
 
                 ToggleGameState();
             }
-
-
         }
 
         #endregion Update
@@ -178,13 +175,12 @@ namespace Bigmode_Game_Jam_2026
         /// <returns>Render target with game screen drawn on it</returns>
         public override RenderTarget2D DrawToRenderTarget(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
-            graphicsDevice.SetRenderTarget(mScreenTarget);
-            graphicsDevice.Clear(Color.Black);
+            graphicsDevice.SetRenderTarget(_renderTarget);
+            graphicsDevice.Clear(Color.Red);
 
             spriteBatch.Begin();
 
             _tilemap.Draw(spriteBatch);
-            TileObjectManager.I.Draw(spriteBatch);
 
             if (_currentGameState == GameState.Edit)
             {
@@ -193,7 +189,7 @@ namespace Bigmode_Game_Jam_2026
 
             spriteBatch.End();
 
-            return mScreenTarget;
+            return _renderTarget;
         }
 
         #endregion Draw

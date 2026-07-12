@@ -1,7 +1,6 @@
 ﻿using Bigmode_Game_Jam_2026.Tiles;
 using Microsoft.Xna.Framework;
 using MonogameLibrary.Tilemaps;
-using MonogameLibrary.Tilemaps.TilemapObjects;
 using MonogameLibrary.Utilities;
 
 namespace Bigmode_Game_Jam_2026.GameObjects

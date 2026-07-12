@@ -1,13 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonogameLibrary;
 using MonogameLibrary.Assets;
 using MonogameLibrary.Graphics;
-using MonogameLibrary.Utilities;
+using MonogameLibrary.Screens;
 using System;
-using System.Reflection.Metadata;
 
 namespace Bigmode_Game_Jam_2026
 {
@@ -23,6 +21,11 @@ namespace Bigmode_Game_Jam_2026
         private const int FixedFPS = 60;
         private const double FixedTimeStep = 1.0d / FixedFPS;
 
+        // Screen resolution
+        private const int NativeResWidth = 640;
+        private const int NativeResHeight = 360;
+        private Rectangle _renderDestination;
+
         public Main() : base(Title, WindowWidth, WindowHeight, IsFullscreen)
         {
             // Target fixed frame rate
@@ -32,6 +35,10 @@ namespace Bigmode_Game_Jam_2026
             // Vsync
             Graphics.SynchronizeWithVerticalRetrace = true;
             Graphics.ApplyChanges();
+
+            // Window resizing
+            Window.AllowUserResizing = true;
+            Window.ClientSizeChanged += OnClientSizeChanged;
         }
 
 
@@ -53,10 +60,12 @@ namespace Bigmode_Game_Jam_2026
             TextureAtlas cursorAtlas = TextureAtlas.FromGrid("cursorAtlas", cursorTexture, 80, 80);
             AssetManager.I.AddTextureAtlas("cursorAtlas", cursorAtlas);
 
-            ScreenManager.LoadAllScreens(Graphics, Content);
+            ScreenManager.I.RegisterScreen("gameplayScreen", new GameplayScreen(Graphics, NativeResWidth, NativeResHeight));
+            ScreenManager.I.LoadScreens(Content);
 
             // Load startup screen
-            ScreenManager.ActivateScreen(ScreenType.Gameplay);
+            ScreenManager.I.ActivateScreen("gameplayScreen");
+            _renderDestination = CalcRenderDestination(ScreenManager.I.CurrentScreen.Width, ScreenManager.I.CurrentScreen.Height);
         }
 
 
@@ -65,7 +74,7 @@ namespace Bigmode_Game_Jam_2026
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            ScreenManager.GetActiveScreen().Update(gameTime);
+            ScreenManager.I.UpdateScreens(gameTime);
 
             base.Update(gameTime);
         }
@@ -75,12 +84,11 @@ namespace Bigmode_Game_Jam_2026
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // Draw active screen.
-            Screen screen = ScreenManager.GetActiveScreen();
+            Screen screen = ScreenManager.I.CurrentScreen;
 
             if (screen != null)
             {
-                RenderTarget2D screenTargetRef = screen.DrawToRenderTarget(GraphicsDevice, SpriteBatch);
+                RenderTarget2D screenRenderTarget = screen.DrawToRenderTarget(GraphicsDevice, SpriteBatch);
                 GraphicsDevice.SetRenderTarget(null);
 
                 SpriteBatch.Begin(SpriteSortMode.FrontToBack,
@@ -89,12 +97,18 @@ namespace Bigmode_Game_Jam_2026
                                                          DepthStencilState.Default,
                                                          RasterizerState.CullNone);
 
-                Draw2D.I.DrawTexture(SpriteBatch, screenTargetRef, Vector2.Zero);
+                SpriteBatch.Draw(screenRenderTarget, _renderDestination, Color.White);
 
                 SpriteBatch.End();
             }
 
             base.Draw(gameTime);
+        }
+
+
+        private void OnClientSizeChanged(object sender, EventArgs e)
+        {
+            _renderDestination = CalcRenderDestination(ScreenManager.I.CurrentScreen.Width, ScreenManager.I.CurrentScreen.Height);
         }
     }
 }

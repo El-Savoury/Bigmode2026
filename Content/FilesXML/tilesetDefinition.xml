@@ -2,9 +2,9 @@
 <Tileset>
 	<Name>tileset</Name>
 	<Atlas>tilesetAtlas</Atlas>
-	<TileWidth>64</TileWidth>
-	<TileHeight>64</TileHeight>
-	<Region name="tileRegion" x="0" y="0" width="256" height="320" />
+	<TileWidth>16</TileWidth>
+	<TileHeight>16</TileHeight>
+	<Region name="tileRegion" x="0" y="0" width="64" height="80" />
 	<Templates>
 		<Template tilesetID="0" collision="0" />
 		<Template tilesetID="1" collision="0" />
