@@ -40,6 +40,13 @@
 #begin FilesXML/TilesetDefinition.xml
 /copy:FilesXML/TilesetDefinition.xml;FilesXML/tilesetDefinition.xml
 
+#begin Fonts/monogram.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/monogram.spritefont
+
 #begin tileset.png
 /importer:TextureImporter
 /processor:TextureProcessor
